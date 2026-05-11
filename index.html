@@ -8,782 +8,445 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Crimson+Pro:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --bg:#f3ede5;
-  --bg-warm:#efe8de;
-  --surface:#fffcf8;
-  --surface-hover:#faf6ef;
-  --accent:#1a6b5a;
-  --accent-light:#e4f0ec;
-  --accent-dark:#145548;
-  --warning:#c27d2e;
-  --warning-light:#fdf3e4;
-  --danger:#b83a2a;
-  --danger-light:#fbeae7;
-  --success:#2a8a4e;
-  --success-light:#e6f5ec;
-  --purple:#7b6baa;
-  --purple-light:#f0edf7;
-  --blue:#4a7dc2;
-  --blue-light:#eaf0f9;
-  --text:#2d2a26;
-  --text-secondary:#6b655d;
-  --text-muted:#a09a92;
-  --border:#e5dfd6;
-  --border-light:#efe9e0;
+  --bg:#f3ede5;--bg-warm:#efe8de;--surface:#fffcf8;--surface-hover:#faf6ef;
+  --accent:#1a6b5a;--accent-light:#e4f0ec;--accent-dark:#145548;
+  --warning:#c27d2e;--warning-light:#fdf3e4;
+  --danger:#b83a2a;--danger-light:#fbeae7;
+  --success:#2a8a4e;--success-light:#e6f5ec;
+  --purple:#7b6baa;--purple-light:#f0edf7;
+  --blue:#4a7dc2;--blue-light:#eaf0f9;
+  --text:#2d2a26;--text-secondary:#6b655d;--text-muted:#a09a92;
+  --border:#e5dfd6;--border-light:#efe9e0;
   --shadow-sm:0 1px 3px rgba(45,42,38,.06);
   --shadow-md:0 4px 16px rgba(45,42,38,.08);
   --shadow-lg:0 12px 40px rgba(45,42,38,.12);
-  --radius:10px;
-  --radius-lg:14px;
-  --sidebar-w:250px;
-  --topbar-h:64px;
+  --radius:10px;--radius-lg:14px;--sidebar-w:250px;--topbar-h:64px;
 }
-
 html{font-size:15px}
-body{
-  font-family:'Crimson Pro',Georgia,serif;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;
-  min-height:100vh;
-  overflow:hidden;
-}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* ── GRAIN OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
-  opacity:.03;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ── SIDEBAR ── */
-.sidebar{
-  width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  position:relative;z-index:10;
-}
-.sidebar-brand{
-  padding:24px 22px 20px;
-  border-bottom:1px solid var(--border-light);
-}
-.sidebar-brand h1{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.6rem;letter-spacing:-.02em;
-  color:var(--accent);
-}
-.sidebar-brand span{
-  font-family:'DM Mono',monospace;
-  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--text-muted);display:block;margin-top:2px;
-}
-.sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:2px}
-.nav-item{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 14px;border-radius:8px;
-  font-size:.93rem;font-weight:500;color:var(--text-secondary);
-  cursor:pointer;transition:all .18s ease;position:relative;
-  border:1px solid transparent;
-}
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:relative;z-index:10}
+.sidebar-brand{padding:24px 22px 20px;border-bottom:1px solid var(--border-light)}
+.sidebar-brand h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.6rem;letter-spacing:-.02em;color:var(--accent)}
+.sidebar-brand span{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);display:block;margin-top:2px}
+.sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-section{font-family:'DM Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);padding:16px 14px 6px;margin-top:4px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;font-size:.93rem;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all .18s;border:1px solid transparent}
 .nav-item:hover{background:var(--bg-warm);color:var(--text)}
-.nav-item.active{
-  background:var(--accent-light);color:var(--accent-dark);
-  border-color:rgba(26,107,90,.12);font-weight:600;
-}
-.nav-item .nav-icon{
-  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
-  font-size:1.05rem;opacity:.8;
-}
-.nav-item .badge{
-  margin-left:auto;
-  background:var(--danger);color:#fff;
-  font-family:'DM Mono',monospace;font-size:.65rem;font-weight:500;
-  padding:2px 7px;border-radius:10px;min-width:20px;text-align:center;
-}
-.sidebar-footer{
-  padding:16px 18px;border-top:1px solid var(--border-light);
-  display:flex;align-items:center;gap:10px;
-}
-.user-avatar{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--accent);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-weight:700;font-size:.85rem;
-}
-.user-info{flex:1}
-.user-info .name{font-weight:600;font-size:.85rem}
-.user-info .role{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.nav-item.active{background:var(--accent-light);color:var(--accent-dark);border-color:rgba(26,107,90,.12);font-weight:600}
+.nav-item.hidden{display:none}
+.nav-icon{width:20px;text-align:center;font-size:1.05rem;opacity:.8}
+.badge{margin-left:auto;background:var(--danger);color:#fff;font-family:'DM Mono',monospace;font-size:.6rem;font-weight:500;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center}
+.sidebar-footer{padding:16px 18px;border-top:1px solid var(--border-light)}
+.user-avatar-sm{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:.85rem;flex-shrink:0}
+.sidebar-user{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 8px;border-radius:8px;transition:background .15s}
+.sidebar-user:hover{background:var(--bg-warm)}
+.sidebar-user .name{font-weight:600;font-size:.85rem}
+.sidebar-user .role-tag{font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:8px;display:inline-block;margin-top:2px}
+.role-dropdown{position:absolute;bottom:80px;left:12px;right:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:20;display:none;overflow:hidden}
+.role-dropdown.open{display:block;animation:fadeUp .2s ease}
+.role-dropdown-header{padding:12px 16px;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);border-bottom:1px solid var(--border-light)}
+.role-option{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border-light)}
+.role-option:last-child{border-bottom:none}
+.role-option:hover{background:var(--surface-hover)}
+.role-option.current{background:var(--accent-light)}
+.role-option .name{font-weight:500;font-size:.85rem}
+.role-option .role{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);text-transform:uppercase}
 
-/* ── MAIN AREA ── */
-.main-wrapper{
-  flex:1;display:flex;flex-direction:column;
-  height:100vh;overflow:hidden;
-}
-
-/* ── TOPBAR ── */
-.topbar{
-  height:var(--topbar-h);min-height:var(--topbar-h);
-  background:var(--surface);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 28px;gap:16px;
-}
-.search-box{
-  flex:1;max-width:400px;position:relative;
-}
-.search-box input{
-  width:100%;padding:8px 14px 8px 36px;
-  border:1px solid var(--border);border-radius:8px;
-  font-family:'Crimson Pro',serif;font-size:.9rem;
-  background:var(--bg);color:var(--text);
-  transition:border-color .2s;outline:none;
-}
+/* MAIN */
+.main-wrapper{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.topbar{height:var(--topbar-h);min-height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px}
+.search-box{flex:1;max-width:400px;position:relative}
+.search-box input{width:100%;padding:8px 14px 8px 36px;border:1px solid var(--border);border-radius:8px;font-family:'Crimson Pro',serif;font-size:.9rem;background:var(--bg);color:var(--text);transition:border-color .2s;outline:none}
 .search-box input:focus{border-color:var(--accent)}
-.search-box .search-icon{
-  position:absolute;left:11px;top:50%;transform:translateY(-50%);
-  color:var(--text-muted);font-size:.85rem;pointer-events:none;
-}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem;pointer-events:none}
 .topbar-right{display:flex;align-items:center;gap:12px;margin-left:auto}
-.topbar-date{
-  font-family:'DM Mono',monospace;font-size:.75rem;
-  color:var(--text-muted);letter-spacing:.02em;
-}
-.notif-btn{
-  position:relative;width:38px;height:38px;border-radius:8px;
-  border:1px solid var(--border);background:var(--surface);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;color:var(--text-secondary);
-  transition:all .18s;
-}
+.topbar-date{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-muted)}
+.notif-btn{position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--text-secondary);transition:all .18s}
 .notif-btn:hover{background:var(--bg-warm);border-color:var(--accent)}
-.notif-btn .dot{
-  position:absolute;top:7px;right:7px;width:8px;height:8px;
-  border-radius:50%;background:var(--danger);
-  border:2px solid var(--surface);
-}
-
-/* ── CONTENT ── */
-.content{
-  flex:1;overflow-y:auto;overflow-x:hidden;
-  padding:0;
-}
+.notif-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--surface)}
+.notif-dropdown{position:absolute;top:52px;right:0;width:360px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:50;display:none;overflow:hidden;max-height:400px;overflow-y:auto}
+.notif-dropdown.open{display:block;animation:fadeUp .2s ease}
+.notif-dd-header{padding:14px 18px;border-bottom:1px solid var(--border-light);font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);display:flex;justify-content:space-between;align-items:center}
+.notif-dd-header button{background:none;border:none;color:var(--accent);cursor:pointer;font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.04em}
+.notif-dd-header button:hover{text-decoration:underline}
+.notif-item{padding:12px 18px;border-bottom:1px solid var(--border-light);display:flex;gap:10px;cursor:pointer;transition:background .15s}
+.notif-item:hover{background:var(--surface-hover)}
+.notif-item:last-child{border-bottom:none}
+.notif-item.read{opacity:.5}
+.notif-icon-sm{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.notif-text{font-size:.8rem;line-height:1.4}
+.notif-text strong{font-weight:600}
+.notif-time{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);margin-top:2px}
+.content{flex:1;overflow-y:auto;overflow-x:hidden}
 .view{display:none;animation:fadeUp .35s ease}
 .view.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── DASHBOARD VIEW ── */
+/* DASHBOARD */
 .dash-header{padding:28px 32px 0}
-.dash-header h2{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.8rem;letter-spacing:-.02em;
-}
+.dash-header h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;letter-spacing:-.02em}
 .dash-header p{color:var(--text-secondary);font-size:.95rem;margin-top:4px}
-
-.stat-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:16px;padding:20px 32px 0;
-}
-.stat-card{
-  background:var(--surface);border:1px solid var(--border-light);
-  border-radius:var(--radius-lg);padding:20px 22px;
-  transition:transform .2s,box-shadow .2s;
-}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 32px 0}
+.stat-card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:20px 22px;transition:transform .2s,box-shadow .2s;cursor:pointer}
 .stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.stat-card .stat-label{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);
-  margin-bottom:8px;
-}
-.stat-card .stat-value{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:2.2rem;line-height:1;
-}
-.stat-card .stat-change{
-  font-family:'DM Mono',monospace;font-size:.7rem;
-  margin-top:6px;display:flex;align-items:center;gap:4px;
-}
-.stat-card.danger .stat-value{color:var(--danger)}
-.stat-card.warning .stat-value{color:var(--warning)}
-.stat-card.accent .stat-value{color:var(--accent)}
-.stat-card.blue .stat-value{color:var(--blue)}
-
+.stat-label{font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.stat-value{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.2rem;line-height:1}
+.stat-change{font-family:'DM Mono',monospace;font-size:.7rem;margin-top:6px;display:flex;align-items:center;gap:4px}
 .dash-section{padding:24px 32px}
-.dash-section h3{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:600;font-size:1.15rem;margin-bottom:14px;
-  display:flex;align-items:center;gap:8px;
-}
-
+.dash-section h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;margin-bottom:14px}
 .activity-list{display:flex;flex-direction:column;gap:8px}
-.activity-item{
-  display:flex;align-items:center;gap:14px;
-  padding:12px 16px;background:var(--surface);
-  border:1px solid var(--border-light);border-radius:var(--radius);
-  transition:background .15s;
-}
+.activity-item{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);transition:background .15s}
 .activity-item:hover{background:var(--surface-hover)}
-.activity-dot{
-  width:8px;height:8px;border-radius:50%;flex-shrink:0;
-}
+.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .activity-text{flex:1;font-size:.9rem}
 .activity-text strong{font-weight:600}
-.activity-time{
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  color:var(--text-muted);white-space:nowrap;
-}
+.activity-time{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);white-space:nowrap}
 
-/* ── KANBAN VIEW ── */
-.kanban-header{
-  padding:24px 32px 0;display:flex;align-items:center;justify-content:space-between;
-}
-.kanban-header h2{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.8rem;letter-spacing:-.02em;
-}
-.kanban-header .btn-add{
-  padding:9px 18px;border-radius:8px;border:1px solid var(--accent);
-  background:var(--accent);color:#fff;cursor:pointer;
-  font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:600;
-  transition:all .18s;
-}
-.kanban-header .btn-add:hover{background:var(--accent-dark);transform:translateY(-1px)}
-
-.kanban-scroll{
-  overflow-x:auto;overflow-y:hidden;
-  padding:20px 32px 32px;
-}
-.kanban-board{
-  display:flex;gap:14px;
-  min-height:calc(100vh - 200px);
-}
-.kanban-col{
-  min-width:240px;width:240px;flex-shrink:0;
-  display:flex;flex-direction:column;
-}
-.col-header{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 14px;margin-bottom:10px;
-  border-radius:var(--radius);position:relative;
-}
-.col-header .col-color{
-  width:10px;height:10px;border-radius:3px;flex-shrink:0;
-}
-.col-header .col-name{
-  font-family:'DM Mono',monospace;font-size:.72rem;
-  text-transform:uppercase;letter-spacing:.06em;
-  font-weight:500;color:var(--text-secondary);
-}
-.col-header .col-count{
-  margin-left:auto;
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  background:var(--bg-warm);color:var(--text-muted);
-  padding:2px 8px;border-radius:10px;
-}
-.col-cards{display:flex;flex-direction:column;gap:8px;flex:1}
-
-.kanban-card{
-  background:var(--surface);border:1px solid var(--border-light);
-  border-radius:var(--radius);padding:14px 16px;
-  cursor:pointer;transition:all .2s;
-  position:relative;overflow:hidden;
-}
-.kanban-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  border-radius:3px 0 0 3px;
-}
-.kanban-card:hover{
-  transform:translateY(-2px);box-shadow:var(--shadow-md);
-  border-color:var(--accent);
-}
+/* KANBAN */
+.kanban-header{padding:24px 32px 0;display:flex;align-items:center;justify-content:space-between}
+.kanban-header h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;letter-spacing:-.02em}
+.btn-add{padding:9px 18px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:600;transition:all .18s}
+.btn-add:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.kanban-scroll{overflow-x:auto;overflow-y:hidden;padding:20px 32px 32px}
+.kanban-board{display:flex;gap:14px;min-height:calc(100vh - 200px)}
+.kanban-col{min-width:230px;width:230px;flex-shrink:0;display:flex;flex-direction:column}
+.col-header{display:flex;align-items:center;gap:8px;padding:10px 14px;margin-bottom:10px;border-radius:var(--radius)}
+.col-color{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.col-name{font-family:'DM Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:500;color:var(--text-secondary)}
+.col-count{margin-left:auto;font-family:'DM Mono',monospace;font-size:.62rem;background:var(--bg-warm);color:var(--text-muted);padding:2px 8px;border-radius:10px}
+.col-cards{display:flex;flex-direction:column;gap:8px;flex:1;padding:6px;border-radius:var(--radius);transition:background .2s,min-height .2s}
+.col-cards.drag-over{background:var(--accent-light);min-height:80px}
+.kanban-card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);padding:14px 16px;cursor:grab;transition:all .2s;position:relative;overflow:hidden;user-select:none}
+.kanban-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.kanban-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--accent)}
+.kanban-card.dragging{opacity:.4;transform:rotate(2deg)}
 .kanban-card.priority-urgent::before{background:var(--danger)}
 .kanban-card.priority-high::before{background:var(--warning)}
 .kanban-card.priority-medium::before{background:var(--blue)}
 .kanban-card.priority-low::before{background:var(--success)}
-
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.card-name{font-weight:600;font-size:.9rem}
-.card-cycle{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  background:var(--bg-warm);color:var(--text-muted);
-  padding:2px 7px;border-radius:8px;
-}
-.card-action{
-  font-size:.8rem;color:var(--text-secondary);
-  margin-bottom:8px;line-height:1.4;
-}
+.card-name{font-weight:600;font-size:.88rem}
+.card-cycle{font-family:'DM Mono',monospace;font-size:.58rem;background:var(--bg-warm);color:var(--text-muted);padding:2px 7px;border-radius:8px}
+.card-action{font-size:.78rem;color:var(--text-secondary);margin-bottom:8px;line-height:1.4}
 .card-bottom{display:flex;align-items:center;justify-content:space-between}
-.card-date{
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  display:flex;align-items:center;gap:4px;
-}
+.card-date{font-family:'DM Mono',monospace;font-size:.66rem;display:flex;align-items:center;gap:4px}
 .card-date.overdue{color:var(--danger);font-weight:500}
 .card-date.today{color:var(--warning);font-weight:500}
 .card-date.upcoming{color:var(--text-muted)}
+.card-priority-dot{width:6px;height:6px;border-radius:50%}
 
-.card-priority-dot{
-  width:6px;height:6px;border-radius:50%;
-}
-
-/* ── DAILY ACTIONS VIEW ── */
+/* DAILY ACTIONS */
 .actions-header{padding:24px 32px 0}
-.actions-header h2{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.8rem;letter-spacing:-.02em;
-}
+.actions-header h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;letter-spacing:-.02em}
 .actions-header p{color:var(--text-secondary);font-size:.95rem;margin-top:4px}
-
-.actions-filter{
-  display:flex;gap:8px;padding:16px 32px 0;
-}
-.filter-btn{
-  padding:6px 14px;border-radius:20px;border:1px solid var(--border);
-  background:var(--surface);color:var(--text-secondary);
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  text-transform:uppercase;letter-spacing:.04em;
-  cursor:pointer;transition:all .18s;
-}
+.actions-filter{display:flex;gap:8px;padding:16px 32px 0}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;transition:all .18s}
 .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
 .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
 .actions-list{padding:16px 32px 32px;display:flex;flex-direction:column;gap:8px}
-.action-card{
-  display:flex;align-items:center;gap:16px;
-  padding:16px 20px;background:var(--surface);
-  border:1px solid var(--border-light);border-radius:var(--radius);
-  cursor:pointer;transition:all .2s;
-}
+.action-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);cursor:pointer;transition:all .2s}
 .action-card:hover{box-shadow:var(--shadow-sm);border-color:var(--accent)}
 .action-card.overdue{border-left:3px solid var(--danger);background:var(--danger-light)}
 .action-card.today{border-left:3px solid var(--warning);background:var(--warning-light)}
-.action-card .action-check{
-  width:22px;height:22px;border-radius:6px;border:2px solid var(--border);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .18s;flex-shrink:0;font-size:.7rem;
-}
-.action-card .action-check:hover{border-color:var(--accent);background:var(--accent-light)}
-.action-card .action-check.done{background:var(--accent);border-color:var(--accent);color:#fff}
+.action-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;font-size:.7rem;background:var(--surface)}
+.action-check:hover{border-color:var(--accent);background:var(--accent-light)}
+.action-check.done{background:var(--accent);border-color:var(--accent);color:#fff}
 .action-info{flex:1}
-.action-info .action-patient{font-weight:600;font-size:.95rem}
-.action-info .action-desc{font-size:.82rem;color:var(--text-secondary);margin-top:2px}
+.action-patient{font-weight:600;font-size:.95rem}
+.action-desc{font-size:.82rem;color:var(--text-secondary);margin-top:2px}
 .action-meta{text-align:right}
-.action-meta .action-date{
-  font-family:'DM Mono',monospace;font-size:.7rem;
-}
-.action-meta .action-label{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  text-transform:uppercase;letter-spacing:.06em;
-  padding:2px 8px;border-radius:8px;margin-top:4px;display:inline-block;
-}
+.action-date-val{font-family:'DM Mono',monospace;font-size:.7rem}
+.action-label{font-family:'DM Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:8px;margin-top:4px;display:inline-block}
 .action-label.overdue{background:var(--danger-light);color:var(--danger)}
 .action-label.today{background:var(--warning-light);color:var(--warning)}
 .action-label.upcoming{background:var(--blue-light);color:var(--blue)}
+.no-actions{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:.95rem}
 
-/* ── PATIENTS TABLE VIEW ── */
-.patients-header{
-  padding:24px 32px 0;display:flex;align-items:center;justify-content:space-between;
-}
-.patients-header h2{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.8rem;letter-spacing:-.02em;
-}
+/* PATIENTS TABLE */
+.view-header{padding:24px 32px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.view-header h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;letter-spacing:-.02em}
+.view-header p{color:var(--text-secondary);font-size:.95rem;margin-top:4px;width:100%}
 .table-wrap{padding:16px 32px 32px}
-.patients-table{
-  width:100%;border-collapse:separate;border-spacing:0;
-  background:var(--surface);border:1px solid var(--border-light);
-  border-radius:var(--radius-lg);overflow:hidden;
-}
-.patients-table th{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  text-transform:uppercase;letter-spacing:.07em;
-  color:var(--text-muted);font-weight:500;
-  text-align:left;padding:12px 18px;
-  border-bottom:1px solid var(--border);
-  background:var(--bg-warm);
-}
-.patients-table td{
-  padding:14px 18px;border-bottom:1px solid var(--border-light);
-  font-size:.88rem;
-}
+.patients-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden}
+.patients-table th{font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-warm);white-space:nowrap}
+.patients-table td{padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:.86rem}
 .patients-table tr:last-child td{border-bottom:none}
-.patients-table tr:hover td{background:var(--surface-hover);cursor:pointer}
+.patients-table tbody tr{cursor:pointer;transition:background .15s}
+.patients-table tbody tr:hover td{background:var(--surface-hover)}
 .table-name{font-weight:600}
-.stage-badge{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  padding:3px 10px;border-radius:12px;font-weight:500;
-  white-space:nowrap;
-}
+.stage-badge{font-family:'DM Mono',monospace;font-size:.6rem;padding:3px 10px;border-radius:12px;font-weight:500;white-space:nowrap;display:inline-block}
 
-/* ── DETAIL PANEL ── */
-.detail-overlay{
-  position:fixed;inset:0;background:rgba(45,42,38,.25);
-  z-index:100;opacity:0;pointer-events:none;
-  transition:opacity .3s;
-}
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 32px 0}
+.cal-dow{font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);text-align:center;padding:10px 0}
+.cal-day{background:var(--surface);border:1px solid var(--border-light);border-radius:8px;min-height:90px;padding:8px;cursor:pointer;transition:all .15s;position:relative}
+.cal-day:hover{border-color:var(--accent);box-shadow:var(--shadow-sm)}
+.cal-day.empty{background:transparent;border-color:transparent;cursor:default}
+.cal-day.today{border-color:var(--accent);background:var(--accent-light)}
+.cal-day.selected{border-color:var(--accent-dark);box-shadow:0 0 0 2px var(--accent)}
+.cal-day .day-num{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:500;color:var(--text-secondary)}
+.cal-day.today .day-num{color:var(--accent);font-weight:700}
+.cal-day.empty .day-num{color:transparent}
+.cal-dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
+.cal-dot{width:7px;height:7px;border-radius:50%}
+.cal-dot.overdue{background:var(--danger)}
+.cal-dot.today{background:var(--warning)}
+.cal-dot.upcoming{background:var(--blue)}
+.cal-day-patient{font-size:.65rem;padding:2px 4px;border-radius:4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.cal-day-detail{padding:16px 32px 0}
+.cal-day-detail-box{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:20px 24px}
+.cal-day-detail-box h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;margin-bottom:12px}
+.cal-patient-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-light);cursor:pointer;transition:background .15s}
+.cal-patient-row:last-child{border-bottom:none}
+.cal-patient-row:hover{background:var(--surface-hover)}
+.cal-patient-name{font-weight:600;font-size:.88rem;flex:1}
+.cal-patient-action{font-size:.8rem;color:var(--text-secondary)}
+.cal-nav{display:flex;align-items:center;gap:16px;padding:20px 32px 16px}
+.cal-nav button{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .15s}
+.cal-nav button:hover{border-color:var(--accent);color:var(--accent)}
+.cal-nav-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem}
+
+/* REPORTS */
+.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 32px 0}
+.report-card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:20px 22px}
+.chart-section{padding:24px 32px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.chart-box{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:24px}
+.chart-box h4{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;margin-bottom:16px}
+.bar-chart{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-label{font-size:.78rem;width:120px;text-align:right;color:var(--text-secondary);flex-shrink:0}
+.bar-track{flex:1;height:24px;background:var(--bg-warm);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;transition:width .8s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-family:'DM Mono',monospace;font-size:.62rem;color:#fff;font-weight:500;min-width:30px}
+.bar-count{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);width:28px;text-align:center;flex-shrink:0}
+.donut-wrap{display:flex;align-items:center;gap:24px}
+.donut{width:120px;height:120px;border-radius:50%;position:relative;flex-shrink:0}
+.donut-center{position:absolute;inset:24px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.donut-center .val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.6rem;line-height:1}
+.donut-center .lbl{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--text-muted);text-transform:uppercase}
+.donut-legend{display:flex;flex-direction:column;gap:6px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.8rem}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* SETTINGS */
+.settings-section{padding:20px 32px}
+.settings-box{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden}
+.settings-box-header{padding:18px 22px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.settings-box-header h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem}
+.settings-row{display:flex;align-items:center;padding:14px 22px;border-bottom:1px solid var(--border-light);gap:16px}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{flex:1;font-size:.88rem}
+.settings-row-label small{display:block;color:var(--text-muted);font-size:.78rem;margin-top:2px}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--border);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s;box-shadow:var(--shadow-sm)}
+.toggle.on::after{transform:translateX(20px)}
+.team-member-row{display:flex;align-items:center;padding:12px 22px;border-bottom:1px solid var(--border-light);gap:12px}
+.team-member-row:last-child{border-bottom:none}
+.team-name{flex:1;font-weight:600;font-size:.88rem}
+.team-email{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted)}
+.team-role-select{font-family:'DM Mono',monospace;font-size:.7rem;padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;outline:none}
+.team-actions button{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:.85rem;transition:color .15s}
+.team-actions button:hover{color:var(--danger)}
+.btn-outline{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-family:'Crimson Pro',serif;font-size:.82rem;font-weight:500;color:var(--text-secondary);transition:all .18s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+/* DETAIL PANEL */
+.detail-overlay{position:fixed;inset:0;background:rgba(45,42,38,.25);z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
 .detail-overlay.open{opacity:1;pointer-events:all}
-.detail-panel{
-  position:fixed;top:0;right:-520px;width:500px;height:100vh;
-  background:var(--surface);z-index:101;
-  box-shadow:var(--shadow-lg);transition:right .35s cubic-bezier(.4,0,.2,1);
-  overflow-y:auto;display:flex;flex-direction:column;
-}
+.detail-panel{position:fixed;top:0;right:-520px;width:500px;height:100vh;background:var(--surface);z-index:101;box-shadow:var(--shadow-lg);transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
 .detail-panel.open{right:0}
-.detail-top{
-  padding:20px 24px;border-bottom:1px solid var(--border-light);
-  display:flex;align-items:center;gap:12px;
-}
-.detail-close{
-  width:32px;height:32px;border-radius:8px;border:1px solid var(--border);
-  background:var(--surface);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;color:var(--text-secondary);
-  transition:all .15s;
-}
+.detail-top{padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px}
+.detail-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--text-secondary);transition:all .15s}
 .detail-close:hover{background:var(--danger-light);border-color:var(--danger);color:var(--danger)}
 .detail-body{flex:1;padding:24px}
-
-.detail-patient-header{text-align:left;margin-bottom:24px}
-.detail-patient-header h2{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:700;font-size:1.6rem;letter-spacing:-.02em;
-}
-.detail-patient-meta{
-  font-family:'DM Mono',monospace;font-size:.72rem;
-  color:var(--text-muted);margin-top:4px;
-  display:flex;gap:12px;flex-wrap:wrap;
-}
-.detail-contact{
-  margin-top:12px;padding:14px 16px;
-  background:var(--bg-warm);border-radius:var(--radius);
-  display:flex;flex-direction:column;gap:6px;
-}
-.detail-contact-row{
-  display:flex;align-items:center;gap:8px;
-  font-size:.82rem;color:var(--text-secondary);
-}
-.detail-contact-row .label{
-  font-family:'DM Mono',monospace;font-size:.62rem;
-  text-transform:uppercase;letter-spacing:.06em;
-  color:var(--text-muted);width:48px;
-}
-
+.detail-patient-header h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.6rem;letter-spacing:-.02em}
+.detail-meta{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);margin-top:4px;display:flex;gap:12px;flex-wrap:wrap}
+.detail-contact{margin-top:12px;padding:14px 16px;background:var(--bg-warm);border-radius:var(--radius);display:flex;flex-direction:column;gap:6px}
+.detail-contact-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-secondary)}
+.detail-contact-row .lbl{font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);width:48px}
 .detail-section{margin-bottom:24px}
-.detail-section-title{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  text-transform:uppercase;letter-spacing:.08em;
-  color:var(--text-muted);margin-bottom:12px;
-  padding-bottom:6px;border-bottom:1px solid var(--border-light);
-}
-
-.detail-status{
-  padding:14px 16px;border-radius:var(--radius);
-  background:var(--accent-light);border:1px solid rgba(26,107,90,.12);
-}
-.detail-status .status-stage{
-  font-weight:600;font-size:.95rem;color:var(--accent-dark);
-}
-.detail-status .status-action{
-  font-size:.85rem;color:var(--text-secondary);margin-top:4px;
-}
-.detail-status .status-due{
-  font-family:'DM Mono',monospace;font-size:.72rem;
-  margin-top:8px;display:flex;align-items:center;gap:6px;
-}
-
-/* Timeline */
+.detail-section-title{font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.detail-status{padding:14px 16px;border-radius:var(--radius);background:var(--accent-light);border:1px solid rgba(26,107,90,.12)}
+.status-stage{font-weight:600;font-size:.95rem;color:var(--accent-dark)}
+.status-action{font-size:.85rem;color:var(--text-secondary);margin-top:4px}
+.status-due{font-family:'DM Mono',monospace;font-size:.72rem;margin-top:8px}
+.stage-select{margin-top:10px;display:flex;align-items:center;gap:8px}
+.stage-select label{font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted)}
+.stage-select select{flex:1;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:'DM Mono',monospace;font-size:.72rem;cursor:pointer;outline:none}
 .timeline{display:flex;flex-direction:column;gap:0}
-.timeline-step{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:10px 0;position:relative;
-}
-.timeline-step:not(:last-child)::after{
-  content:'';position:absolute;
-  left:10px;top:28px;bottom:-10px;
-  width:1.5px;background:var(--border);
-}
+.timeline-step{display:flex;align-items:flex-start;gap:12px;padding:10px 0;position:relative}
+.timeline-step:not(:last-child)::after{content:'';position:absolute;left:10px;top:28px;bottom:-10px;width:1.5px;background:var(--border)}
 .timeline-step.completed:not(:last-child)::after{background:var(--accent)}
-.timeline-icon{
-  width:22px;height:22px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;flex-shrink:0;
-  border:2px solid var(--border);background:var(--surface);
-  position:relative;z-index:1;
-}
-.timeline-step.completed .timeline-icon{
-  background:var(--accent);border-color:var(--accent);color:#fff;
-}
-.timeline-step.current .timeline-icon{
-  border-color:var(--warning);background:var(--warning-light);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(194,125,46,.3)}
-  50%{box-shadow:0 0 0 6px rgba(194,125,46,0)}
-}
+.timeline-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0;border:2px solid var(--border);background:var(--surface);position:relative;z-index:1}
+.timeline-step.completed .timeline-icon{background:var(--accent);border-color:var(--accent);color:#fff}
+.timeline-step.current .timeline-icon{border-color:var(--warning);background:var(--warning-light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(194,125,46,.3)}50%{box-shadow:0 0 0 6px rgba(194,125,46,0)}}
 .timeline-content{flex:1;padding-top:1px}
-.timeline-step .step-name{font-size:.85rem;font-weight:500}
+.step-name{font-size:.85rem;font-weight:500}
 .timeline-step.completed .step-name{color:var(--text-secondary)}
 .timeline-step.current .step-name{color:var(--warning);font-weight:600}
 .timeline-step.future .step-name{color:var(--text-muted)}
-.timeline-step .step-date{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  color:var(--text-muted);margin-top:1px;
-}
-
-.detail-notes{
-  padding:14px 16px;background:var(--bg-warm);
-  border-radius:var(--radius);font-size:.85rem;
-  line-height:1.6;color:var(--text-secondary);
-}
-
-.detail-actions{
-  padding:16px 24px;border-top:1px solid var(--border-light);
-  display:flex;gap:10px;
-}
-.btn-primary{
-  flex:1;padding:10px;border-radius:8px;border:none;
-  background:var(--accent);color:#fff;
-  font-family:'Crimson Pro',serif;font-size:.88rem;font-weight:600;
-  cursor:pointer;transition:all .18s;
-}
+.step-date{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);margin-top:1px}
+.detail-notes{display:flex;flex-direction:column;gap:8px}
+.note-item{padding:10px 14px;background:var(--bg-warm);border-radius:var(--radius);font-size:.82rem;line-height:1.5;color:var(--text-secondary)}
+.note-header{display:flex;justify-content:space-between;margin-bottom:4px}
+.note-author{font-weight:600;font-size:.78rem;color:var(--text)}
+.note-date{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text-muted)}
+.detail-actions{padding:16px 24px;border-top:1px solid var(--border-light);display:flex;gap:10px;flex-wrap:wrap}
+.btn-primary{flex:1;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:600;transition:all .18s;min-width:100px}
 .btn-primary:hover{background:var(--accent-dark)}
-.btn-secondary{
-  flex:1;padding:10px;border-radius:8px;
-  border:1px solid var(--border);background:var(--surface);
-  color:var(--text-secondary);
-  font-family:'Crimson Pro',serif;font-size:.88rem;font-weight:500;
-  cursor:pointer;transition:all .18s;
-}
+.btn-secondary{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);cursor:pointer;font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:500;transition:all .18s;min-width:100px}
 .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-danger{padding:10px;border-radius:8px;border:1px solid var(--danger);background:var(--danger-light);color:var(--danger);cursor:pointer;font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:500;transition:all .18s}
+.btn-danger:hover{background:var(--danger);color:#fff}
 
-/* ── NOTIFICATIONS DROPDOWN ── */
-.notif-dropdown{
-  position:absolute;top:52px;right:0;width:340px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
-  z-index:50;display:none;overflow:hidden;
-}
-.notif-dropdown.open{display:block;animation:fadeUp .2s ease}
-.notif-dropdown-header{
-  padding:14px 18px;border-bottom:1px solid var(--border-light);
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  text-transform:uppercase;letter-spacing:.06em;
-  color:var(--text-muted);display:flex;justify-content:space-between;
-}
-.notif-item{
-  padding:12px 18px;border-bottom:1px solid var(--border-light);
-  display:flex;gap:10px;cursor:pointer;transition:background .15s;
-}
-.notif-item:hover{background:var(--surface-hover)}
-.notif-item:last-child{border-bottom:none}
-.notif-icon{
-  width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;flex-shrink:0;
-}
-.notif-text{font-size:.8rem;line-height:1.4}
-.notif-text strong{font-weight:600}
-.notif-time{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);margin-top:2px}
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(45,42,38,.35);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;animation:modalUp .3s ease}
+@keyframes modalUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem}
+.modal-close{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--text-muted);transition:all .15s}
+.modal-close:hover{background:var(--danger-light);border-color:var(--danger);color:var(--danger)}
+.modal-body{padding:20px 24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border-light);display:flex;justify-content:flex-end;gap:10px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Crimson Pro',serif;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group input.invalid,.form-group select.invalid{border-color:var(--danger);background:var(--danger-light)}
+.form-error{font-size:.75rem;color:var(--danger);margin-top:4px;display:none}
+.form-group .form-error.show{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .sidebar{width:64px;min-width:64px}
-  .sidebar-brand h1,.sidebar-brand span,.nav-item span:not(.nav-icon):not(.badge),
-  .user-info{display:none}
-  .nav-item{justify-content:center;padding:10px}
-  .sidebar-brand{padding:16px;text-align:center}
-  .stat-grid{grid-template-columns:repeat(2,1fr)}
-}
+/* TOASTS */
+.toast-container{position:fixed;top:20px;right:20px;z-index:9000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{padding:12px 20px;border-radius:10px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;transform:translateX(120%);transition:transform .3s ease;font-size:.85rem;pointer-events:all;min-width:260px}
+.toast.show{transform:translateX(0)}
+.toast-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.toast-success{border-left:3px solid var(--accent)}
+.toast-success .toast-icon{background:var(--accent-light);color:var(--accent)}
+.toast-error{border-left:3px solid var(--danger)}
+.toast-error .toast-icon{background:var(--danger-light);color:var(--danger)}
+.toast-warning{border-left:3px solid var(--warning)}
+.toast-warning .toast-icon{background:var(--warning-light);color:var(--warning)}
+.toast-info{border-left:3px solid var(--blue)}
+.toast-info .toast-icon{background:var(--blue-light);color:var(--blue)}
+
+/* CONFIRM DIALOG */
+.confirm-modal{width:400px;text-align:center}
+.confirm-modal .modal-body{padding:24px}
+.confirm-icon{font-size:2.4rem;margin-bottom:12px}
+.confirm-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem;margin-bottom:8px}
+.confirm-msg{color:var(--text-secondary);font-size:.9rem;line-height:1.5}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 20px;color:var(--text-muted)}
+.empty-state .empty-icon{font-size:2rem;margin-bottom:12px;opacity:.5}
+.empty-state p{font-size:.9rem}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.stat-grid,.report-grid{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.sidebar{width:64px;min-width:64px}.sidebar-brand h1,.sidebar-brand span,.nav-item span:not(.nav-icon):not(.badge),.sidebar-user .name,.sidebar-user .role-tag,.nav-section{display:none}.nav-item{justify-content:center;padding:10px}.sidebar-brand{padding:16px;text-align:center}.sidebar-user{justify-content:center}}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sidebar-brand">
-    <h1>CareFlow</h1>
-    <span>Patient Follow-Up Tracker</span>
-  </div>
+  <div class="sidebar-brand"><h1>CareFlow</h1><span>Patient Follow-Up Tracker</span></div>
   <nav class="sidebar-nav">
-    <div class="nav-item active" data-view="dashboard">
-      <span class="nav-icon">◈</span><span>Dashboard</span>
-    </div>
-    <div class="nav-item" data-view="kanban">
-      <span class="nav-icon">▦</span><span>Pipeline</span>
-    </div>
-    <div class="nav-item" data-view="actions">
-      <span class="nav-icon">◉</span><span>Daily Actions</span>
-      <span class="badge" id="actions-badge">3</span>
-    </div>
-    <div class="nav-item" data-view="patients">
-      <span class="nav-icon">☰</span><span>All Patients</span>
-    </div>
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" data-view="dashboard"><span class="nav-icon">◈</span><span>Dashboard</span></div>
+    <div class="nav-section">Workflow</div>
+    <div class="nav-item" data-view="kanban"><span class="nav-icon">▦</span><span>Pipeline</span></div>
+    <div class="nav-item" data-view="actions"><span class="nav-icon">◉</span><span>Daily Actions</span><span class="badge" id="nav-badge-actions">3</span></div>
+    <div class="nav-item" data-view="patients"><span class="nav-icon">☰</span><span>All Patients</span></div>
+    <div class="nav-section">Planning</div>
+    <div class="nav-item" data-view="calendar"><span class="nav-icon">▦</span><span>Calendar</span></div>
+    <div class="nav-item" data-view="reports"><span class="nav-icon">◈</span><span>Reports</span></div>
+    <div class="nav-section">System</div>
+    <div class="nav-item" data-view="settings" id="nav-settings"><span class="nav-icon">⚙</span><span>Settings</span></div>
   </nav>
   <div class="sidebar-footer">
-    <div class="user-avatar">SR</div>
-    <div class="user-info">
-      <div class="name">Sarah Rivera</div>
-      <div class="role">Admin</div>
+    <div class="sidebar-user" id="role-switcher">
+      <div class="user-avatar-sm" id="user-avatar" style="background:var(--accent);color:#fff">SR</div>
+      <div>
+        <div class="name" id="user-name">Sarah Rivera</div>
+        <div class="role-tag" id="user-role-tag" style="background:var(--accent-light);color:var(--accent)">Admin</div>
+      </div>
     </div>
+  </div>
+  <div class="role-dropdown" id="role-dropdown">
+    <div class="role-dropdown-header">Switch Role (Demo)</div>
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main-wrapper">
   <header class="topbar">
-    <div class="search-box">
-      <span class="search-icon">⌕</span>
-      <input type="text" placeholder="Search patients..." id="global-search">
-    </div>
+    <div class="search-box"><span class="search-icon">⌕</span><input type="text" placeholder="Search patients..." id="global-search"></div>
     <div class="topbar-right">
-      <span class="topbar-date">Mon, May 12, 2026</span>
-      <button class="notif-btn" id="notif-toggle">
-        🔔<span class="dot" id="notif-dot"></span>
-      </button>
-      <div class="notif-dropdown" id="notif-dropdown">
-        <div class="notif-dropdown-header">
-          <span>Notifications</span><span>3 new</span>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon" style="background:var(--danger-light);color:var(--danger)">!</div>
-          <div>
-            <div class="notif-text"><strong>Henry Patel</strong> — Follow-up call overdue by 4 days</div>
-            <div class="notif-time">Today, 8:00 AM</div>
-          </div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon" style="background:var(--warning-light);color:var(--warning)">⏰</div>
-          <div>
-            <div class="notif-text"><strong>Alice Johnson</strong> — Monthly follow-up due today</div>
-            <div class="notif-time">Today, 8:00 AM</div>
-          </div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon" style="background:var(--warning-light);color:var(--warning)">⏰</div>
-          <div>
-            <div class="notif-text"><strong>Emma Wilson</strong> — Prescription request due today</div>
-            <div class="notif-time">Today, 8:00 AM</div>
-          </div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon" style="background:var(--danger-light);color:var(--danger)">!</div>
-          <div>
-            <div class="notif-text"><strong>Carol Martinez</strong> — Payment link overdue by 2 days</div>
-            <div class="notif-time">Yesterday</div>
-          </div>
-        </div>
+      <span class="topbar-date" id="topbar-date"></span>
+      <div style="position:relative">
+        <button class="notif-btn" id="notif-toggle">🔔<span class="notif-dot" id="notif-dot"></span></button>
+        <div class="notif-dropdown" id="notif-dropdown"></div>
       </div>
     </div>
   </header>
-
   <div class="content">
 
-    <!-- ═══ DASHBOARD VIEW ═══ -->
+    <!-- DASHBOARD -->
     <section class="view active" id="view-dashboard">
-      <div class="dash-header">
-        <h2>Good morning, Sarah</h2>
-        <p>Here's your clinic overview for today.</p>
-      </div>
-      <div class="stat-grid">
-        <div class="stat-card accent">
-          <div class="stat-label">Active Patients</div>
-          <div class="stat-value">10</div>
-          <div class="stat-change" style="color:var(--accent)">↑ 2 new this week</div>
-        </div>
-        <div class="stat-card danger">
-          <div class="stat-label">Overdue Actions</div>
-          <div class="stat-value" id="stat-overdue">2</div>
-          <div class="stat-change" style="color:var(--danger)">Needs immediate attention</div>
-        </div>
-        <div class="stat-card warning">
-          <div class="stat-label">Due Today</div>
-          <div class="stat-value" id="stat-today">2</div>
-          <div class="stat-change" style="color:var(--warning)">Action items for today</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-label">Due This Week</div>
-          <div class="stat-value">5</div>
-          <div class="stat-change" style="color:var(--blue)">On track for completion</div>
-        </div>
-      </div>
-      <div class="dash-section">
-        <h3>⚡ Recent Activity</h3>
-        <div class="activity-list">
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--accent)"></div>
-            <div class="activity-text"><strong>Frank Torres</strong> — Injection #3 confirmed completed</div>
-            <div class="activity-time">Yesterday, 3:15 PM</div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--blue)"></div>
-            <div class="activity-text"><strong>Emma Wilson</strong> — Payment of $450 received for Cycle 2</div>
-            <div class="activity-time">May 8, 11:20 AM</div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--purple)"></div>
-            <div class="activity-text"><strong>Bob Miller</strong> — Lab results submitted to eligibility review</div>
-            <div class="activity-time">May 7, 9:45 AM</div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--success)"></div>
-            <div class="activity-text"><strong>Grace Lee</strong> — Medication shipped via FedEx (FX28491736)</div>
-            <div class="activity-time">May 6, 2:30 PM</div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--warning)"></div>
-            <div class="activity-text"><strong>Carol Martinez</strong> — Eligibility confirmed, payment link sent</div>
-            <div class="activity-time">May 5, 10:00 AM</div>
-          </div>
-        </div>
-      </div>
+      <div class="dash-header"><h2 id="dash-greeting">Good morning, Sarah</h2><p id="dash-date-line"></p></div>
+      <div class="stat-grid" id="dash-stats"></div>
+      <div class="dash-section"><h3>Recent Activity</h3><div class="activity-list" id="dash-activity"></div></div>
     </section>
 
-    <!-- ═══ KANBAN VIEW ═══ -->
+    <!-- KANBAN -->
     <section class="view" id="view-kanban">
-      <div class="kanban-header">
-        <h2>Patient Pipeline</h2>
-        <button class="btn-add">+ Add Patient</button>
-      </div>
-      <div class="kanban-scroll">
-        <div class="kanban-board" id="kanban-board"></div>
-      </div>
+      <div class="kanban-header"><h2>Patient Pipeline</h2><button class="btn-add" id="btn-add-kanban">+ Add Patient</button></div>
+      <div class="kanban-scroll"><div class="kanban-board" id="kanban-board"></div></div>
     </section>
 
-    <!-- ═══ DAILY ACTIONS VIEW ═══ -->
+    <!-- DAILY ACTIONS -->
     <section class="view" id="view-actions">
-      <div class="actions-header">
-        <h2>Daily Actions</h2>
-        <p>Tasks requiring your attention today, May 12, 2026.</p>
-      </div>
-      <div class="actions-filter">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="overdue">Overdue</button>
-        <button class="filter-btn" data-filter="today">Today</button>
-        <button class="filter-btn" data-filter="upcoming">This Week</button>
-      </div>
+      <div class="actions-header"><h2>Daily Actions</h2><p id="actions-subtitle"></p></div>
+      <div class="actions-filter" id="actions-filter"></div>
       <div class="actions-list" id="actions-list"></div>
     </section>
 
-    <!-- ═══ PATIENTS TABLE VIEW ═══ -->
+    <!-- ALL PATIENTS -->
     <section class="view" id="view-patients">
-      <div class="patients-header">
-        <h2>All Patients</h2>
-        <button class="btn-add" style="padding:9px 18px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.85rem;font-weight:600">+ Add Patient</button>
-      </div>
-      <div class="table-wrap">
-        <table class="patients-table" id="patients-table">
-          <thead>
-            <tr>
-              <th>Patient</th>
-              <th>Stage</th>
-              <th>Next Action</th>
-              <th>Due Date</th>
-              <th>Cycle</th>
-              <th>Priority</th>
-            </tr>
-          </thead>
-          <tbody id="patients-tbody"></tbody>
-        </table>
-      </div>
+      <div class="view-header"><h2>All Patients</h2><button class="btn-add" id="btn-add-patients">+ Add Patient</button></div>
+      <div class="table-wrap"><table class="patients-table"><thead><tr><th>Patient</th><th>Stage</th><th>Next Action</th><th>Due Date</th><th>Cycle</th><th>Priority</th></tr></thead><tbody id="patients-tbody"></tbody></table></div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="view" id="view-calendar">
+      <div class="view-header"><h2>Calendar</h2></div>
+      <div class="cal-nav" id="cal-nav"></div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-day-detail" id="cal-day-detail"></div>
+    </section>
+
+    <!-- REPORTS -->
+    <section class="view" id="view-reports">
+      <div class="view-header"><h2>Reports & Analytics</h2></div>
+      <div class="report-grid" id="report-stats"></div>
+      <div class="chart-section"><div class="chart-grid" id="report-charts"></div></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="view-settings">
+      <div class="view-header"><h2>Settings</h2></div>
+      <div id="settings-content"></div>
     </section>
 
   </div>
@@ -792,472 +455,721 @@ body::before{
 <!-- DETAIL PANEL -->
 <div class="detail-overlay" id="detail-overlay"></div>
 <div class="detail-panel" id="detail-panel">
-  <div class="detail-top">
-    <button class="detail-close" id="detail-close">✕</button>
-    <span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Patient Details</span>
-  </div>
+  <div class="detail-top"><button class="detail-close" id="detail-close">✕</button><span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Patient Details</span></div>
   <div class="detail-body" id="detail-body"></div>
-  <div class="detail-actions">
-    <button class="btn-primary" id="btn-mark-complete">Mark Step Complete</button>
-    <button class="btn-secondary" id="btn-add-note">Add Note</button>
-  </div>
+  <div class="detail-actions" id="detail-actions"></div>
 </div>
 
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<div class="modal-overlay" id="confirm-overlay">
+  <div class="modal confirm-modal" id="confirm-content"></div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-container" id="toast-container"></div>
+
 <script>
-// ── DATA ──
-const TODAY = '2026-05-12';
+// ═══════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════
+const TODAY='2026-05-12';
+const STAGES=[
+  {id:'consultation',name:'New Consultation',color:'#5b8def'},
+  {id:'eligibility',name:'Labs & Eligibility',color:'#9b7ed8'},
+  {id:'payment',name:'Awaiting Payment',color:'#d4a04a'},
+  {id:'prescription',name:'Rx & Delivery',color:'#1a8a7a'},
+  {id:'treatment',name:'In Treatment',color:'#2aad6e'},
+  {id:'followup',name:'Follow-up Needed',color:'#d94a4a'},
+  {id:'complete',name:'Cycle Complete',color:'#6ab04c'},
+];
+const STAGE_BG={consultation:'var(--blue-light)',eligibility:'var(--purple-light)',payment:'var(--warning-light)',prescription:'var(--accent-light)',treatment:'var(--success-light)',followup:'var(--danger-light)',complete:'#eef7e8'};
+const STAGE_CLR={consultation:'var(--blue)',eligibility:'var(--purple)',payment:'var(--warning)',prescription:'var(--accent)',treatment:'var(--success)',followup:'var(--danger)',complete:'#4a8a2a'};
+const PRI_CLR={urgent:'var(--danger)',high:'var(--warning)',medium:'var(--blue)',low:'var(--success)'};
 
-const stages = [
-  { id:'consultation', name:'New Consultation', color:'#5b8def' },
-  { id:'eligibility',  name:'Labs & Eligibility', color:'#9b7ed8' },
-  { id:'payment',      name:'Awaiting Payment', color:'#d4a04a' },
-  { id:'prescription', name:'Rx & Delivery', color:'#1a8a7a' },
-  { id:'treatment',    name:'In Treatment', color:'#2aad6e' },
-  { id:'follow-up',    name:'Follow-up Needed', color:'#d94a4a' },
-  { id:'complete',     name:'Cycle Complete', color:'#6ab04c' },
+let patients=[
+  {id:1,name:'Alice Johnson',age:34,phone:'(555) 234-5678',email:'alice.j@email.com',stage:'followup',nextAction:'Schedule monthly follow-up call',dueDate:'2026-05-12',priority:'high',cycle:3,startDate:'2025-09-15',notes:[{id:1,text:'Patient responding well. Lost 4 lbs first month.',date:'2025-10-15',author:'Sarah Rivera'},{id:2,text:'Dosage increase approved for Cycle 3.',date:'2026-04-10',author:'Dr. Ananya Patel'},{id:3,text:'Follow-up call needed for prescription request.',date:'2026-05-10',author:'Sarah Rivera'}],plan:[{step:'Initial Consultation',done:true,date:'2025-09-15'},{step:'Lab Work Ordered',done:true,date:'2025-09-16'},{step:'Eligibility Confirmed',done:true,date:'2025-09-22'},{step:'Payment Processed',done:true,date:'2025-09-23'},{step:'Prescription Requested',done:true,date:'2025-09-23'},{step:'Medication Delivered',done:true,date:'2025-09-28'},{step:'Treatment Started',done:true,date:'2025-10-01'},{step:'Monthly Follow-up',done:false,date:'2026-05-12'},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:2,name:'Bob Miller',age:42,phone:'(555) 345-6789',email:'bob.m@email.com',stage:'eligibility',nextAction:'Confirm lab results and eligibility',dueDate:'2026-05-13',priority:'medium',cycle:1,startDate:'2026-05-01',notes:[{id:4,text:'Labs submitted to Quest Diagnostics.',date:'2026-05-02',author:'Mike Chen'}],plan:[{step:'Initial Consultation',done:true,date:'2026-05-01'},{step:'Lab Work Ordered',done:true,date:'2026-05-02'},{step:'Eligibility Confirmed',done:false,date:null},{step:'Payment Processed',done:false,date:null},{step:'Prescription Requested',done:false,date:null},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:3,name:'Carol Martinez',age:29,phone:'(555) 456-7890',email:'carol.m@email.com',stage:'payment',nextAction:'Resend payment link',dueDate:'2026-05-10',priority:'high',cycle:1,startDate:'2026-04-28',notes:[{id:5,text:'Eligibility confirmed. Payment link resent — patient reported not receiving first email.',date:'2026-05-05',author:'Sarah Rivera'}],plan:[{step:'Initial Consultation',done:true,date:'2026-04-28'},{step:'Lab Work Ordered',done:true,date:'2026-04-29'},{step:'Eligibility Confirmed',done:true,date:'2026-05-05'},{step:'Payment Processed',done:false,date:null},{step:'Prescription Requested',done:false,date:null},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:4,name:'David Kim',age:51,phone:'(555) 567-8901',email:'david.k@email.com',stage:'consultation',nextAction:'Schedule initial consultation',dueDate:'2026-05-14',priority:'low',cycle:1,startDate:'2026-05-10',notes:[{id:6,text:'New patient referral from Dr. Chen.',date:'2026-05-10',author:'Mike Chen'}],plan:[{step:'Initial Consultation',done:false,date:'2026-05-14'},{step:'Lab Work Ordered',done:false,date:null},{step:'Eligibility Confirmed',done:false,date:null},{step:'Payment Processed',done:false,date:null},{step:'Prescription Requested',done:false,date:null},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:5,name:'Emma Wilson',age:38,phone:'(555) 678-9012',email:'emma.w@email.com',stage:'prescription',nextAction:'Submit prescription request to pharmacy',dueDate:'2026-05-12',priority:'high',cycle:2,startDate:'2025-11-20',notes:[{id:7,text:'Second cycle. Previous treatment showed good results. Dosage increase approved.',date:'2026-05-01',author:'Dr. Ananya Patel'}],plan:[{step:'Initial Consultation',done:true,date:'2025-11-20'},{step:'Lab Work Ordered',done:true,date:'2025-11-21'},{step:'Eligibility Confirmed',done:true,date:'2025-11-28'},{step:'Payment Processed',done:true,date:'2026-05-08'},{step:'Prescription Requested',done:false,date:'2026-05-12'},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:6,name:'Frank Torres',age:45,phone:'(555) 789-0123',email:'frank.t@email.com',stage:'treatment',nextAction:'Confirm injection #4 scheduled',dueDate:'2026-05-15',priority:'medium',cycle:1,startDate:'2026-02-10',notes:[{id:8,text:'On track. Third injection completed. Good tolerance, no side effects.',date:'2026-05-11',author:'Sarah Rivera'}],plan:[{step:'Initial Consultation',done:true,date:'2026-02-10'},{step:'Lab Work Ordered',done:true,date:'2026-02-11'},{step:'Eligibility Confirmed',done:true,date:'2026-02-18'},{step:'Payment Processed',done:true,date:'2026-02-19'},{step:'Prescription Requested',done:true,date:'2026-02-19'},{step:'Medication Delivered',done:true,date:'2026-02-25'},{step:'Treatment Started',done:true,date:'2026-03-01'},{step:'Monthly Follow-up',done:false,date:'2026-05-15'},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:7,name:'Grace Lee',age:31,phone:'(555) 890-1234',email:'grace.l@email.com',stage:'prescription',nextAction:'Confirm medication delivery',dueDate:'2026-05-11',priority:'high',cycle:1,startDate:'2026-04-20',notes:[{id:9,text:'Medication shipped via FedEx. Tracking: FX28491736.',date:'2026-05-06',author:'Jessica Torres'}],plan:[{step:'Initial Consultation',done:true,date:'2026-04-20'},{step:'Lab Work Ordered',done:true,date:'2026-04-21'},{step:'Eligibility Confirmed',done:true,date:'2026-04-28'},{step:'Payment Processed',done:true,date:'2026-04-29'},{step:'Prescription Requested',done:true,date:'2026-04-29'},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:8,name:'Henry Patel',age:55,phone:'(555) 901-2345',email:'henry.p@email.com',stage:'followup',nextAction:'Follow-up call — OVERDUE',dueDate:'2026-05-08',priority:'urgent',cycle:4,startDate:'2025-06-15',notes:[{id:10,text:'OVERDUE — Follow-up was due May 8. Missed last appointment. No answer May 9.',date:'2026-05-09',author:'Mike Chen'},{id:11,text:'Try alternate number on file.',date:'2026-05-10',author:'Sarah Rivera'}],plan:[{step:'Initial Consultation',done:true,date:'2025-06-15'},{step:'Lab Work Ordered',done:true,date:'2025-06-16'},{step:'Eligibility Confirmed',done:true,date:'2025-06-23'},{step:'Payment Processed',done:true,date:'2025-06-24'},{step:'Prescription Requested',done:true,date:'2025-06-24'},{step:'Medication Delivered',done:true,date:'2025-06-30'},{step:'Treatment Started',done:true,date:'2025-07-05'},{step:'Monthly Follow-up',done:false,date:'2026-05-08'},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:9,name:'Iris Nakamura',age:27,phone:'(555) 012-3456',email:'iris.n@email.com',stage:'treatment',nextAction:'Schedule injection #2',dueDate:'2026-05-18',priority:'low',cycle:1,startDate:'2026-03-20',notes:[{id:12,text:'First month complete. Mild nausea but tolerating well.',date:'2026-04-20',author:'Dr. Ananya Patel'}],plan:[{step:'Initial Consultation',done:true,date:'2026-03-20'},{step:'Lab Work Ordered',done:true,date:'2026-03-21'},{step:'Eligibility Confirmed',done:true,date:'2026-03-28'},{step:'Payment Processed',done:true,date:'2026-03-29'},{step:'Prescription Requested',done:true,date:'2026-03-29'},{step:'Medication Delivered',done:true,date:'2026-04-05'},{step:'Treatment Started',done:true,date:'2026-04-08'},{step:'Monthly Follow-up',done:false,date:'2026-05-18'},{step:'New Cycle Payment',done:false,date:null}]},
+  {id:10,name:'James Foster',age:48,phone:'(555) 123-4567',email:'james.f@email.com',stage:'complete',nextAction:'Discuss Cycle 3 options',dueDate:'2026-05-20',priority:'low',cycle:2,startDate:'2025-10-05',notes:[{id:13,text:'Cycle 2 complete. Lost 18 lbs across two cycles. Excellent results.',date:'2026-05-05',author:'Dr. Ananya Patel'}],plan:[{step:'Initial Consultation',done:true,date:'2025-10-05'},{step:'Lab Work Ordered',done:true,date:'2025-10-06'},{step:'Eligibility Confirmed',done:true,date:'2025-10-13'},{step:'Payment Processed',done:true,date:'2025-10-14'},{step:'Prescription Requested',done:true,date:'2025-10-14'},{step:'Medication Delivered',done:true,date:'2025-10-20'},{step:'Treatment Started',done:true,date:'2025-10-25'},{step:'Monthly Follow-up',done:true,date:'2026-04-25'},{step:'Cycle Complete',done:true,date:'2026-05-05'}]}
 ];
 
-const patients = [
-  { id:1, name:'Alice Johnson', age:34, phone:'(555) 234-5678', email:'alice.j@email.com',
-    stage:'follow-up', nextAction:'Schedule monthly follow-up call', dueDate:'2026-05-12',
-    priority:'high', cycle:3, startDate:'2025-09-15',
-    notes:'Patient responding well to treatment. Next injection due in 2 weeks. Consider dosage adjustment at next visit.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2025-09-15'},
-      {step:'Lab Work Ordered',done:true,date:'2025-09-16'},
-      {step:'Eligibility Confirmed',done:true,date:'2025-09-22'},
-      {step:'Payment Processed',done:true,date:'2025-09-23'},
-      {step:'Prescription Requested',done:true,date:'2025-09-23'},
-      {step:'Medication Delivered',done:true,date:'2025-09-28'},
-      {step:'Treatment Started',done:true,date:'2025-10-01'},
-      {step:'Monthly Follow-up',done:false,date:'2026-05-12'},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:2, name:'Bob Miller', age:42, phone:'(555) 345-6789', email:'bob.m@email.com',
-    stage:'eligibility', nextAction:'Confirm lab results and eligibility', dueDate:'2026-05-13',
-    priority:'medium', cycle:1, startDate:'2026-05-01',
-    notes:'Labs submitted. Awaiting results from Quest Diagnostics.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2026-05-01'},
-      {step:'Lab Work Ordered',done:true,date:'2026-05-02'},
-      {step:'Eligibility Confirmed',done:false,date:null},
-      {step:'Payment Processed',done:false,date:null},
-      {step:'Prescription Requested',done:false,date:null},
-      {step:'Medication Delivered',done:false,date:null},
-      {step:'Treatment Started',done:false,date:null},
-      {step:'Monthly Follow-up',done:false,date:null},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:3, name:'Carol Martinez', age:29, phone:'(555) 456-7890', email:'carol.m@email.com',
-    stage:'payment', nextAction:'Resend payment link', dueDate:'2026-05-10',
-    priority:'high', cycle:1, startDate:'2026-04-28',
-    notes:'Eligibility confirmed. Payment link needs to be resent — patient reported not receiving first email.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2026-04-28'},
-      {step:'Lab Work Ordered',done:true,date:'2026-04-29'},
-      {step:'Eligibility Confirmed',done:true,date:'2026-05-05'},
-      {step:'Payment Processed',done:false,date:null},
-      {step:'Prescription Requested',done:false,date:null},
-      {step:'Medication Delivered',done:false,date:null},
-      {step:'Treatment Started',done:false,date:null},
-      {step:'Monthly Follow-up',done:false,date:null},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:4, name:'David Kim', age:51, phone:'(555) 567-8901', email:'david.k@email.com',
-    stage:'consultation', nextAction:'Schedule initial consultation', dueDate:'2026-05-14',
-    priority:'low', cycle:1, startDate:'2026-05-10',
-    notes:'New patient referral from Dr. Chen. Interested in weight management program.',
-    plan:[
-      {step:'Initial Consultation',done:false,date:null},
-      {step:'Lab Work Ordered',done:false,date:null},
-      {step:'Eligibility Confirmed',done:false,date:null},
-      {step:'Payment Processed',done:false,date:null},
-      {step:'Prescription Requested',done:false,date:null},
-      {step:'Medication Delivered',done:false,date:null},
-      {step:'Treatment Started',done:false,date:null},
-      {step:'Monthly Follow-up',done:false,date:null},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:5, name:'Emma Wilson', age:38, phone:'(555) 678-9012', email:'emma.w@email.com',
-    stage:'prescription', nextAction:'Submit prescription request to pharmacy', dueDate:'2026-05-12',
-    priority:'high', cycle:2, startDate:'2025-11-20',
-    notes:'Second cycle. Previous treatment showed good results. Dosage increase approved by clinician.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2025-11-20'},
-      {step:'Lab Work Ordered',done:true,date:'2025-11-21'},
-      {step:'Eligibility Confirmed',done:true,date:'2025-11-28'},
-      {step:'Payment Processed',done:true,date:'2026-05-08'},
-      {step:'Prescription Requested',done:false,date:null},
-      {step:'Medication Delivered',done:false,date:null},
-      {step:'Treatment Started',done:false,date:null},
-      {step:'Monthly Follow-up',done:false,date:null},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:6, name:'Frank Torres', age:45, phone:'(555) 789-0123', email:'frank.t@email.com',
-    stage:'treatment', nextAction:'Confirm injection #4 scheduled', dueDate:'2026-05-15',
-    priority:'medium', cycle:1, startDate:'2026-02-10',
-    notes:'Patient on track. Third injection completed last week. Good tolerance, no side effects reported.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2026-02-10'},
-      {step:'Lab Work Ordered',done:true,date:'2026-02-11'},
-      {step:'Eligibility Confirmed',done:true,date:'2026-02-18'},
-      {step:'Payment Processed',done:true,date:'2026-02-19'},
-      {step:'Prescription Requested',done:true,date:'2026-02-19'},
-      {step:'Medication Delivered',done:true,date:'2026-02-25'},
-      {step:'Treatment Started',done:true,date:'2026-03-01'},
-      {step:'Monthly Follow-up',done:false,date:'2026-05-15'},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:7, name:'Grace Lee', age:31, phone:'(555) 890-1234', email:'grace.l@email.com',
-    stage:'prescription', nextAction:'Confirm medication delivery', dueDate:'2026-05-11',
-    priority:'high', cycle:1, startDate:'2026-04-20',
-    notes:'Medication shipped via FedEx. Tracking: FX28491736. Expected delivery May 11.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2026-04-20'},
-      {step:'Lab Work Ordered',done:true,date:'2026-04-21'},
-      {step:'Eligibility Confirmed',done:true,date:'2026-04-28'},
-      {step:'Payment Processed',done:true,date:'2026-04-29'},
-      {step:'Prescription Requested',done:true,date:'2026-04-29'},
-      {step:'Medication Delivered',done:false,date:null},
-      {step:'Treatment Started',done:false,date:null},
-      {step:'Monthly Follow-up',done:false,date:null},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:8, name:'Henry Patel', age:55, phone:'(555) 901-2345', email:'henry.p@email.com',
-    stage:'follow-up', nextAction:'Follow-up call — OVERDUE', dueDate:'2026-05-08',
-    priority:'urgent', cycle:4, startDate:'2025-06-15',
-    notes:'OVERDUE — Follow-up was due May 8. Patient missed last appointment. Attempted call on May 9, no answer. Try again today.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2025-06-15'},
-      {step:'Lab Work Ordered',done:true,date:'2025-06-16'},
-      {step:'Eligibility Confirmed',done:true,date:'2025-06-23'},
-      {step:'Payment Processed',done:true,date:'2025-06-24'},
-      {step:'Prescription Requested',done:true,date:'2025-06-24'},
-      {step:'Medication Delivered',done:true,date:'2025-06-30'},
-      {step:'Treatment Started',done:true,date:'2025-07-05'},
-      {step:'Monthly Follow-up',done:false,date:'2026-05-08'},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:9, name:'Iris Nakamura', age:27, phone:'(555) 012-3456', email:'iris.n@email.com',
-    stage:'treatment', nextAction:'Schedule injection #2', dueDate:'2026-05-18',
-    priority:'low', cycle:1, startDate:'2026-03-20',
-    notes:'First month completed. Patient reports mild nausea but tolerating well. Injection #2 scheduled for next week.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2026-03-20'},
-      {step:'Lab Work Ordered',done:true,date:'2026-03-21'},
-      {step:'Eligibility Confirmed',done:true,date:'2026-03-28'},
-      {step:'Payment Processed',done:true,date:'2026-03-29'},
-      {step:'Prescription Requested',done:true,date:'2026-03-29'},
-      {step:'Medication Delivered',done:true,date:'2026-04-05'},
-      {step:'Treatment Started',done:true,date:'2026-04-08'},
-      {step:'Monthly Follow-up',done:false,date:'2026-05-18'},
-      {step:'New Cycle Payment',done:false,date:null}
-    ]},
-  { id:10, name:'James Foster', age:48, phone:'(555) 123-4567', email:'james.f@email.com',
-    stage:'complete', nextAction:'Discuss Cycle 3 options', dueDate:'2026-05-20',
-    priority:'low', cycle:2, startDate:'2025-10-05',
-    notes:'Cycle 2 complete. Excellent results — lost 18 lbs total across two cycles. Interested in continuing.',
-    plan:[
-      {step:'Initial Consultation',done:true,date:'2025-10-05'},
-      {step:'Lab Work Ordered',done:true,date:'2025-10-06'},
-      {step:'Eligibility Confirmed',done:true,date:'2025-10-13'},
-      {step:'Payment Processed',done:true,date:'2025-10-14'},
-      {step:'Prescription Requested',done:true,date:'2025-10-14'},
-      {step:'Medication Delivered',done:true,date:'2025-10-20'},
-      {step:'Treatment Started',done:true,date:'2025-10-25'},
-      {step:'Monthly Follow-up',done:true,date:'2026-04-25'},
-      {step:'Cycle Complete',done:true,date:'2026-05-05'}
-    ]}
+let users=[
+  {id:1,name:'Sarah Rivera',role:'admin',initials:'SR',email:'sarah@clinic.com'},
+  {id:2,name:'Mike Chen',role:'staff',initials:'MC',email:'mike@clinic.com'},
+  {id:3,name:'Dr. Ananya Patel',role:'clinician',initials:'AP',email:'ananya@clinic.com'},
+  {id:4,name:'Jessica Torres',role:'staff',initials:'JT',email:'jessica@clinic.com'},
 ];
 
-// ── HELPERS ──
-function getStage(id){ return stages.find(s=>s.id===id) }
-function daysDiff(dateStr){
-  const d=new Date(dateStr+'T00:00:00'),t=new Date(TODAY+'T00:00:00');
-  return Math.floor((d-t)/(86400000));
-}
-function urgencyClass(dateStr){
-  const diff=daysDiff(dateStr);
-  if(diff<0) return 'overdue';
-  if(diff===0) return 'today';
-  return 'upcoming';
-}
-function urgencyLabel(dateStr){
-  const diff=daysDiff(dateStr);
-  if(diff<0) return `Overdue by ${Math.abs(diff)} day${Math.abs(diff)>1?'s':''}`;
-  if(diff===0) return 'Due Today';
-  return `In ${diff} day${diff>1?'s':''}`;
-}
-function formatDate(dateStr){
-  if(!dateStr) return '—';
-  const d=new Date(dateStr+'T00:00:00');
-  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-}
-const priorityColors={urgent:'var(--danger)',high:'var(--warning)',medium:'var(--blue)',low:'var(--success)'};
-const stageBgMap={
-  consultation:'var(--blue-light)',eligibility:'var(--purple-light)',
-  payment:'var(--warning-light)',prescription:'var(--accent-light)',
-  treatment:'var(--success-light)',follow-up:'var(--danger-light)',
-  complete:'#eef7e8'
-};
-const stageColorMap={
-  consultation:'var(--blue)',eligibility:'var(--purple)',
-  payment:'var(--warning)',prescription:'var(--accent)',
-  treatment:'var(--success)',follow-up:'var(--danger)',
-  complete:'#4a8a2a'
-};
+let activityLog=[
+  {id:1,text:'<strong>Frank Torres</strong> — Injection #3 confirmed completed',date:'2026-05-11',time:'3:15 PM',color:'var(--accent)'},
+  {id:2,text:'<strong>Emma Wilson</strong> — Payment of $450 received for Cycle 2',date:'2026-05-08',time:'11:20 AM',color:'var(--blue)'},
+  {id:3,text:'<strong>Bob Miller</strong> — Lab results submitted to eligibility review',date:'2026-05-07',time:'9:45 AM',color:'var(--purple)'},
+  {id:4,text:'<strong>Grace Lee</strong> — Medication shipped via FedEx (FX28491736)',date:'2026-05-06',time:'2:30 PM',color:'var(--success)'},
+  {id:5,text:'<strong>Carol Martinez</strong> — Eligibility confirmed, payment link sent',date:'2026-05-05',time:'10:00 AM',color:'var(--warning)'},
+];
 
-// ── NAVIGATION ──
-document.querySelectorAll('.nav-item').forEach(item=>{
-  item.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    item.classList.add('active');
-    const view=item.dataset.view;
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    document.getElementById('view-'+view).classList.add('active');
+let settings={reminderDays:3,overdueEmail:true,dailyDigest:true,autoArchive:false};
+let currentUser=users[0];
+let currentView='dashboard';
+let selectedPatientId=null;
+let calMonth=4;let calYear=2026;let selectedCalDay=null;
+let activeFilter='all';
+let nextId={patient:11,note:100,activity:100};
+
+// ═══════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════
+const $=id=>document.getElementById(id);
+const stageOf=id=>STAGES.find(s=>s.id===id);
+function daysDiff(d){const a=new Date(d+'T00:00:00'),b=new Date(TODAY+'T00:00:00');return Math.floor((a-b)/864e5)}
+function urg(d){const n=daysDiff(d);return n<0?'overdue':n===0?'today':'upcoming'}
+function urgLabel(d){const n=daysDiff(d);return n<0?`Overdue ${Math.abs(n)}d`:n===0?'Due Today':`In ${n}d`}
+function fmtDate(d){if(!d)return'—';return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+function fmtDateFull(d){if(!d)return'—';return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function canEdit(){return currentUser.role!=='clinician'}
+function canDelete(){return currentUser.role==='admin'}
+function canAccessSettings(){return currentUser.role==='admin'}
+
+function showToast(msg,type='success'){
+  const c=$('toast-container');
+  const t=document.createElement('div');
+  t.className='toast toast-'+type;
+  const icons={success:'✓',error:'✕',warning:'⚠',info:'ℹ'};
+  t.innerHTML=`<span class="toast-icon">${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+  c.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3200);
+}
+
+function addActivity(text,color='var(--accent)'){
+  activityLog.unshift({id:nextId.activity++,text,date:TODAY,time:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})});
+  if(activityLog.length>20)activityLog.pop();
+}
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+function navigate(view){
+  currentView=view;
+  document.querySelectorAll('.nav-item[data-view]').forEach(n=>n.classList.toggle('active',n.dataset.view===view));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+view));
+  if(view==='dashboard')renderDashboard();
+  if(view==='kanban')renderKanban();
+  if(view==='actions')renderActions();
+  if(view==='patients')renderPatientsTable();
+  if(view==='calendar')renderCalendar();
+  if(view==='reports')renderReports();
+  if(view==='settings')renderSettings();
+}
+document.querySelectorAll('.nav-item[data-view]').forEach(n=>n.addEventListener('click',()=>navigate(n.dataset.view)));
+
+// ═══════════════════════════════════════════
+//  ROLE SWITCHING
+// ═══════════════════════════════════════════
+function renderRoleDropdown(){
+  const dd=$('role-dropdown');
+  dd.innerHTML=`<div class="role-dropdown-header">Switch Role (Demo)</div>`;
+  users.forEach(u=>{
+    const d=document.createElement('div');
+    d.className='role-option'+(u.id===currentUser.id?' current':'');
+    d.innerHTML=`<div class="user-avatar-sm" style="background:${u.role==='admin'?'var(--accent)':u.role==='staff'?'var(--blue)':'var(--purple)'};color:#fff;width:28px;height:28px;font-size:.7rem">${u.initials}</div><div><div class="name">${u.name}</div><div class="role">${u.role}</div></div>`;
+    d.addEventListener('click',()=>{
+      currentUser=u;
+      applyRole();
+      dd.classList.remove('open');
+      navigate(currentView);
+      showToast(`Switched to ${u.name} (${u.role})`,'info');
+    });
+    dd.appendChild(d);
   });
+}
+function applyRole(){
+  $('user-avatar').textContent=currentUser.initials;
+  $('user-avatar').style.background=currentUser.role==='admin'?'var(--accent)':currentUser.role==='staff'?'var(--blue)':'var(--purple)';
+  $('user-name').textContent=currentUser.name;
+  $('user-role-tag').textContent=currentUser.role;
+  $('user-role-tag').style.background=currentUser.role==='admin'?'var(--accent-light)':currentUser.role==='staff'?'var(--blue-light)':'var(--purple-light)';
+  $('user-role-tag').style.color=currentUser.role==='admin'?'var(--accent)':currentUser.role==='staff'?'var(--blue)':'var(--purple)';
+  $('nav-settings').classList.toggle('hidden',!canAccessSettings());
+  // Hide add buttons for clinician
+  document.querySelectorAll('.btn-add').forEach(b=>{b.style.display=canEdit()?'':'none'});
+}
+$('role-switcher').addEventListener('click',e=>{e.stopPropagation();$('role-dropdown').classList.toggle('open')});
+document.addEventListener('click',()=>$('role-dropdown').classList.remove('open'));
+
+// ═══════════════════════════════════════════
+//  NOTIFICATIONS
+// ═══════════════════════════════════════════
+let notifications=[
+  {id:1,text:'<strong>Henry Patel</strong> — Follow-up call overdue by 4 days',time:'Today, 8:00 AM',type:'danger',read:false,pid:8},
+  {id:2,text:'<strong>Alice Johnson</strong> — Monthly follow-up due today',time:'Today, 8:00 AM',type:'warning',read:false,pid:1},
+  {id:3,text:'<strong>Emma Wilson</strong> — Prescription request due today',time:'Today, 8:00 AM',type:'warning',read:false,pid:5},
+  {id:4,text:'<strong>Carol Martinez</strong> — Payment link overdue by 2 days',time:'Yesterday',type:'danger',read:true,pid:3},
+  {id:5,text:'<strong>Grace Lee</strong> — Medication delivery due yesterday',time:'Yesterday',type:'warning',read:true,pid:7},
+];
+function renderNotifications(){
+  const dd=$('notif-dropdown');
+  const unread=notifications.filter(n=>!n.read).length;
+  $('notif-dot').style.display=unread?'':'none';
+  dd.innerHTML=`<div class="notif-dd-header"><span>Notifications (${unread} new)</span><button id="mark-all-read">Mark all read</button></div>`;
+  notifications.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='notif-item'+(n.read?' read':'');
+    d.innerHTML=`<div class="notif-icon-sm" style="background:${n.type==='danger'?'var(--danger-light)':'var(--warning-light)'};color:${n.type==='danger'?'var(--danger)':'var(--warning)'}">!</div><div><div class="notif-text">${n.text}</div><div class="notif-time">${n.time}</div></div>`;
+    d.addEventListener('click',()=>{n.read=true;renderNotifications();openDetail(n.pid);$('notif-dropdown').classList.remove('open')});
+    dd.appendChild(d);
+  });
+  $('mark-all-read').addEventListener('click',e=>{e.stopPropagation();notifications.forEach(n=>n.read=true);renderNotifications();showToast('All notifications marked as read','info')});
+}
+$('notif-toggle').addEventListener('click',e=>{e.stopPropagation();$('notif-dropdown').classList.toggle('open')});
+
+// ═══════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════
+$('global-search').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase();
+  document.querySelectorAll('.kanban-card').forEach(c=>{const p=patients.find(x=>x.id==c.dataset.pid);c.style.display=(!q||p.name.toLowerCase().includes(q)||p.nextAction.toLowerCase().includes(q))?'':'none'});
+  document.querySelectorAll('#patients-tbody tr').forEach(r=>{const p=patients.find(x=>x.id==r.dataset.pid);r.style.display=(!q||p.name.toLowerCase().includes(q)||p.email.toLowerCase().includes(q))?'':'none'});
+  document.querySelectorAll('.action-card').forEach(c=>{const p=patients.find(x=>x.id==c.dataset.pid);c.style.display=(!q||p.name.toLowerCase().includes(q))?'':'none'});
 });
 
-// ── KANBAN RENDER ──
+// ═══════════════════════════════════════════
+//  DASHBOARD
+// ═══════════════════════════════════════════
+function renderDashboard(){
+  const h=new Date().getHours();
+  const greeting=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  $('dash-greeting').textContent=`${greeting}, ${currentUser.name.split(' ')[0]}`;
+  $('dash-date-line').textContent=`Here's your clinic overview for ${new Date(TODAY+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}`;
+  const overdue=patients.filter(p=>urg(p.dueDate)==='overdue').length;
+  const today=patients.filter(p=>urg(p.dueDate)==='today').length;
+  const week=patients.filter(p=>{const d=daysDiff(p.dueDate);return d>=0&&d<=7}).length;
+  $('dash-stats').innerHTML=`
+    <div class="stat-card" style="border-top:3px solid var(--accent)"><div class="stat-label">Active Patients</div><div class="stat-value" style="color:var(--accent)">${patients.filter(p=>p.stage!=='complete').length}</div><div class="stat-change" style="color:var(--text-muted)">of ${patients.length} total</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--danger)"><div class="stat-label">Overdue</div><div class="stat-value" style="color:var(--danger)">${overdue}</div><div class="stat-change" style="color:var(--danger)">Needs attention</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--warning)"><div class="stat-label">Due Today</div><div class="stat-value" style="color:var(--warning)">${today}</div><div class="stat-change" style="color:var(--warning)">Action items</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--blue)"><div class="stat-label">Due This Week</div><div class="stat-value" style="color:var(--blue)">${week}</div><div class="stat-change" style="color:var(--text-muted)">Upcoming</div></div>
+  `;
+  // Click stats to navigate
+  $('dash-stats').children[1].addEventListener('click',()=>{navigate('actions');setTimeout(()=>document.querySelector('[data-filter="overdue"]')?.click(),100)});
+  $('dash-stats').children[2].addEventListener('click',()=>{navigate('actions');setTimeout(()=>document.querySelector('[data-filter="today"]')?.click(),100)});
+
+  $('dash-activity').innerHTML=activityLog.slice(0,8).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color}"></div><div class="activity-text">${a.text}</div><div class="activity-time">${a.date===TODAY?'Today':fmtDate(a.date)}, ${a.time}</div></div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+//  KANBAN
+// ═══════════════════════════════════════════
 function renderKanban(){
-  const board=document.getElementById('kanban-board');
+  const board=$('kanban-board');
   board.innerHTML='';
-  stages.forEach(stage=>{
+  STAGES.forEach(stage=>{
     const colPatients=patients.filter(p=>p.stage===stage.id);
     const col=document.createElement('div');
     col.className='kanban-col';
-    col.innerHTML=`
-      <div class="col-header">
-        <div class="col-color" style="background:${stage.color}"></div>
-        <span class="col-name">${stage.name}</span>
-        <span class="col-count">${colPatients.length}</span>
-      </div>
-      <div class="col-cards" data-stage="${stage.id}"></div>
-    `;
+    col.innerHTML=`<div class="col-header"><div class="col-color" style="background:${stage.color}"></div><span class="col-name">${stage.name}</span><span class="col-count">${colPatients.length}</span></div><div class="col-cards" data-stage="${stage.id}"></div>`;
     const cardsEl=col.querySelector('.col-cards');
     colPatients.forEach(p=>{
-      const urg=urgencyClass(p.dueDate);
       const card=document.createElement('div');
       card.className=`kanban-card priority-${p.priority}`;
-      card.dataset.patientId=p.id;
-      card.innerHTML=`
-        <div class="card-top">
-          <span class="card-name">${p.name}</span>
-          <span class="card-cycle">C${p.cycle}</span>
-        </div>
-        <div class="card-action">${p.nextAction}</div>
-        <div class="card-bottom">
-          <span class="card-date ${urg}">${urg==='overdue'?'⚠ ':''}${formatDate(p.dueDate)}</span>
-          <span class="card-priority-dot" style="background:${priorityColors[p.priority]}"></span>
-        </div>
-      `;
+      card.dataset.pid=p.id;card.draggable=true;
+      const u=urg(p.dueDate);
+      card.innerHTML=`<div class="card-top"><span class="card-name">${p.name}</span><span class="card-cycle">C${p.cycle}</span></div><div class="card-action">${p.nextAction}</div><div class="card-bottom"><span class="card-date ${u}">${u==='overdue'?'⚠ ':''}${fmtDate(p.dueDate)}</span><span class="card-priority-dot" style="background:${PRI_CLR[p.priority]}"></span></div>`;
       card.addEventListener('click',()=>openDetail(p.id));
+      card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',''+p.id);card.classList.add('dragging')});
+      card.addEventListener('dragend',()=>card.classList.remove('dragging'));
       cardsEl.appendChild(card);
+    });
+    // Drag and drop
+    cardsEl.addEventListener('dragover',e=>{e.preventDefault();cardsEl.classList.add('drag-over')});
+    cardsEl.addEventListener('dragleave',()=>cardsEl.classList.remove('drag-over'));
+    cardsEl.addEventListener('drop',e=>{
+      e.preventDefault();cardsEl.classList.remove('drag-over');
+      const pid=parseInt(e.dataTransfer.getData('text/plain'));
+      const newStage=cardsEl.dataset.stage;
+      const p=patients.find(x=>x.id===pid);
+      if(p&&p.stage!==newStage){
+        const oldStage=stageOf(p.stage).name;
+        p.stage=newStage;
+        addActivity(`<strong>${p.name}</strong> — Moved to ${stageOf(newStage).name}`,'var(--accent)');
+        renderKanban();
+        showToast(`${p.name} moved to ${stageOf(newStage).name}`,'success');
+      }
     });
     board.appendChild(col);
   });
 }
 
-// ── DAILY ACTIONS RENDER ──
-function renderActions(filter='all'){
-  const list=document.getElementById('actions-list');
-  list.innerHTML='';
+// ═══════════════════════════════════════════
+//  DAILY ACTIONS
+// ═══════════════════════════════════════════
+function renderActions(){
+  $('actions-subtitle').textContent=`Tasks requiring your attention — ${new Date(TODAY+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}`;
+  const filters=$('actions-filter');
+  const counts={all:patients.length,overdue:patients.filter(p=>urg(p.dueDate)==='overdue').length,today:patients.filter(p=>urg(p.dueDate)==='today').length,upcoming:patients.filter(p=>urg(p.dueDate)==='upcoming').length};
+  filters.innerHTML=['all','overdue','today','upcoming'].map(f=>`<button class="filter-btn${activeFilter===f?' active':''}" data-filter="${f}">${f==='all'?'All':f.charAt(0).toUpperCase()+f.slice(1)} (${counts[f]})</button>`).join('');
+  filters.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;renderActions()}));
+
   const sorted=[...patients].sort((a,b)=>{
-    const order={urgent:0,high:1,medium:2,low:3};
-    const urgA=urgencyClass(a.dueDate), urgB=urgencyClass(b.dueDate);
-    const urgOrder={overdue:0,today:1,upcoming:2};
-    if(urgOrder[urgA]!==urgOrder[urgB]) return urgOrder[urgA]-urgOrder[urgB];
-    return order[a.priority]-order[b.priority];
+    const urgOrd={overdue:0,today:1,upcoming:2};
+    const priOrd={urgent:0,high:1,medium:2,low:3};
+    if(urgOrd[urg(a.dueDate)]!==urgOrd[urg(b.dueDate)])return urgOrd[urg(a.dueDate)]-urgOrd[urg(b.dueDate)];
+    return priOrd[a.priority]-priOrd[b.priority];
   });
-  sorted.forEach(p=>{
-    const urg=urgencyClass(p.dueDate);
-    if(filter!=='all' && urg!==filter) return;
-    const card=document.createElement('div');
-    card.className=`action-card ${urg}`;
-    card.dataset.patientId=p.id;
-    card.innerHTML=`
-      <div class="action-check" data-pid="${p.id}" title="Mark complete">✓</div>
-      <div class="action-info">
-        <div class="action-patient">${p.name}</div>
-        <div class="action-desc">${p.nextAction}</div>
-      </div>
-      <div class="action-meta">
-        <div class="action-date">${formatDate(p.dueDate)}</div>
-        <span class="action-label ${urg}">${urgencyLabel(p.dueDate)}</span>
-      </div>
-    `;
-    card.querySelector('.action-check').addEventListener('click',e=>{
-      e.stopPropagation();
-      e.currentTarget.classList.toggle('done');
-    });
-    card.addEventListener('click',()=>openDetail(p.id));
-    list.appendChild(card);
-  });
-  // Update badge
-  const overdueCount=patients.filter(p=>urgencyClass(p.dueDate)==='overdue').length;
-  const todayCount=patients.filter(p=>urgencyClass(p.dueDate)==='today').length;
-  document.getElementById('actions-badge').textContent=overdueCount+todayCount;
+  const filtered=sorted.filter(p=>activeFilter==='all'||urg(p.dueDate)===activeFilter);
+  const list=$('actions-list');
+  if(!filtered.length){list.innerHTML='<div class="no-actions"><p>No actions in this category.</p></div>';return}
+  list.innerHTML=filtered.map(p=>{
+    const u=urg(p.dueDate);
+    return `<div class="action-card ${u}" data-pid="${p.id}"><div class="action-check" data-pid="${p.id}">✓</div><div class="action-info"><div class="action-patient">${p.name}</div><div class="action-desc">${p.nextAction}</div></div><div class="action-meta"><div class="action-date-val">${fmtDateFull(p.dueDate)}</div><span class="action-label ${u}">${urgLabel(p.dueDate)}</span></div></div>`;
+  }).join('');
+  list.querySelectorAll('.action-card').forEach(c=>c.addEventListener('click',e=>{if(!e.target.classList.contains('action-check'))openDetail(c.dataset.pid)}));
+  list.querySelectorAll('.action-check').forEach(c=>c.addEventListener('click',e=>{
+    e.stopPropagation();c.classList.toggle('done');
+    if(c.classList.contains('done')){showToast('Action marked complete','success');addActivity(`<strong>${patients.find(p=>p.id==c.dataset.pid).name}</strong> — Action marked complete`)}
+  }));
+
+  // Badge
+  const badge=counts.overdue+counts.today;
+  const badgeEl=$('nav-badge-actions');
+  badgeEl.textContent=badge;
+  badgeEl.style.display=badge?'':'none';
 }
 
-// Filter buttons
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderActions(btn.dataset.filter);
-  });
-});
-
-// ── PATIENTS TABLE RENDER ──
+// ═══════════════════════════════════════════
+//  PATIENTS TABLE
+// ═══════════════════════════════════════════
 function renderPatientsTable(){
-  const tbody=document.getElementById('patients-tbody');
-  tbody.innerHTML='';
-  const sorted=[...patients].sort((a,b)=>{
-    const urgOrder={overdue:0,today:1,upcoming:2};
-    const ua=urgencyClass(a.dueDate),ub=urgencyClass(b.dueDate);
-    if(urgOrder[ua]!==urgOrder[ub]) return urgOrder[ua]-urgOrder[ub];
-    return a.name.localeCompare(b.name);
-  });
-  sorted.forEach(p=>{
-    const stage=getStage(p.stage);
-    const urg=urgencyClass(p.dueDate);
-    const tr=document.createElement('tr');
-    tr.dataset.patientId=p.id;
-    tr.innerHTML=`
-      <td class="table-name">${p.name}</td>
-      <td><span class="stage-badge" style="background:${stageBgMap[p.stage]};color:${stageColorMap[p.stage]}">${stage.name}</span></td>
-      <td style="font-size:.84rem">${p.nextAction}</td>
-      <td><span class="card-date ${urg}" style="font-size:.78rem">${formatDate(p.dueDate)}</span></td>
-      <td style="font-family:'DM Mono',monospace;font-size:.78rem;color:var(--text-muted)">Cycle ${p.cycle}</td>
-      <td><span class="card-priority-dot" style="background:${priorityColors[p.priority]};display:inline-block;width:8px;height:8px;border-radius:50%"></span> <span style="font-size:.78rem;text-transform:capitalize">${p.priority}</span></td>
-    `;
-    tr.addEventListener('click',()=>openDetail(p.id));
-    tbody.appendChild(tr);
-  });
+  const sorted=[...patients].sort((a,b)=>{const o={overdue:0,today:1,upcoming:2};return o[urg(a.dueDate)]-o[urg(b.dueDate)]||a.name.localeCompare(b.name)});
+  $('patients-tbody').innerHTML=sorted.map(p=>{
+    const s=stageOf(p.stage);const u=urg(p.dueDate);
+    return `<tr data-pid="${p.id}"><td class="table-name">${p.name}</td><td><span class="stage-badge" style="background:${STAGE_BG[p.stage]};color:${STAGE_CLR[p.stage]}">${s.name}</span></td><td style="font-size:.82rem">${p.nextAction}</td><td><span class="card-date ${u}" style="font-size:.76rem">${u==='overdue'?'⚠ ':''}${fmtDate(p.dueDate)}</span></td><td style="font-family:'DM Mono',monospace;font-size:.76rem;color:var(--text-muted)">Cycle ${p.cycle}</td><td><span class="card-priority-dot" style="background:${PRI_CLR[p.priority]};display:inline-block;width:8px;height:8px;border-radius:50%"></span> <span style="font-size:.76rem;text-transform:capitalize">${p.priority}</span></td></tr>`;
+  }).join('');
+  $('patients-tbody').querySelectorAll('tr').forEach(r=>r.addEventListener('click',()=>openDetail(r.dataset.pid)));
 }
 
-// ── DETAIL PANEL ──
-let currentDetailId=null;
-function openDetail(id){
-  currentDetailId=id;
-  const p=patients.find(x=>x.id===id);
-  if(!p) return;
-  const stage=getStage(p.stage);
-  const urg=urgencyClass(p.dueDate);
-  const nextIncomplete=p.plan.findIndex(s=>!s.done);
-  const body=document.getElementById('detail-body');
-  body.innerHTML=`
-    <div class="detail-patient-header">
-      <h2>${p.name}</h2>
-      <div class="detail-patient-meta">
-        <span>Age ${p.age}</span>
-        <span>·</span>
-        <span>Cycle ${p.cycle}</span>
-        <span>·</span>
-        <span>Started ${formatDate(p.startDate)}</span>
-      </div>
-      <div class="detail-contact">
-        <div class="detail-contact-row"><span class="label">Phone</span> ${p.phone}</div>
-        <div class="detail-contact-row"><span class="label">Email</span> ${p.email}</div>
+// ═══════════════════════════════════════════
+//  CALENDAR
+// ═══════════════════════════════════════════
+function renderCalendar(){
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  $('cal-nav').innerHTML=`<button id="cal-prev">‹</button><span class="cal-nav-title">${monthNames[calMonth]} ${calYear}</span><button id="cal-next">›</button>`;
+  $('cal-prev').addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--}selectedCalDay=null;renderCalendar()});
+  $('cal-next').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++}selectedCalDay=null;renderCalendar()});
+
+  const grid=$('cal-grid');
+  const dows=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let html=dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+
+  const first=new Date(calYear,calMonth,1);
+  const last=new Date(calYear,calMonth+1,0);
+  const startDay=first.getDay();
+  const daysInMonth=last.getDate();
+
+  // Build patient map by day
+  const dayMap={};
+  patients.forEach(p=>{
+    const d=new Date(p.dueDate+'T00:00:00');
+    if(d.getMonth()===calMonth&&d.getFullYear()===calYear){
+      const day=d.getDate();
+      if(!dayMap[day])dayMap[day]=[];
+      dayMap[day].push(p);
+    }
+  });
+
+  for(let i=0;i<startDay;i++) html+=`<div class="cal-day empty"><span class="day-num"> </span></div>`;
+  for(let day=1;day<=daysInMonth;day++){
+    const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday=dateStr===TODAY;
+    const isSelected=day===selectedCalDay;
+    const pList=dayMap[day]||[];
+    let cls='cal-day'+(isToday?' today':'')+(isSelected?' selected':'');
+    let dots=pList.map(p=>`<span class="cal-dot ${urg(p.dueDate)}"></span>`).join('');
+    let pNames=pList.slice(0,2).map(p=>`<div class="cal-day-patient" style="background:${STAGE_BG[p.stage]};color:${STAGE_CLR[p.stage]}">${p.name.split(' ')[0]}</div>`).join('');
+    if(pList.length>2) pNames+=`<div class="cal-day-patient" style="background:var(--bg-warm);color:var(--text-muted)">+${pList.length-2} more</div>`;
+    html+=`<div class="${cls}" data-day="${day}"><span class="day-num">${day}</span><div class="cal-dots">${dots}</div>${pNames}</div>`;
+  }
+  grid.innerHTML=html;
+
+  grid.querySelectorAll('.cal-day:not(.empty)').forEach(el=>{
+    el.addEventListener('click',()=>{
+      selectedCalDay=parseInt(el.dataset.day);
+      grid.querySelectorAll('.cal-day').forEach(d=>d.classList.remove('selected'));
+      el.classList.add('selected');
+      renderCalDayDetail(selectedCalDay,dayMap);
+    });
+  });
+
+  // Auto-select today if viewing current month
+  if(calMonth===4&&calYear===2026&&!selectedCalDay){selectedCalDay=12;renderCalDayDetail(12,dayMap);grid.querySelector('[data-day="12"]')?.classList.add('selected')}
+  else if(selectedCalDay) renderCalDayDetail(selectedCalDay,dayMap);
+  else $('cal-day-detail').innerHTML='';
+}
+
+function renderCalDayDetail(day,dayMap){
+  const pList=dayMap[day]||[];
+  const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  const isToday=dateStr===TODAY;
+  const detail=$('cal-day-detail');
+  if(!pList.length){detail.innerHTML=`<div class="cal-day-detail-box"><h3>${isToday?'Today — ':''}${fmtDateFull(dateStr)}</h3><div class="empty-state"><p>No patients due on this date.</p></div></div>`;return}
+  detail.innerHTML=`<div class="cal-day-detail-box"><h3>${isToday?'Today — ':''}${fmtDateFull(dateStr)} · ${pList.length} patient${pList.length>1?'s':''}</h3>${pList.map(p=>{
+    const u=urg(p.dueDate);
+    return `<div class="cal-patient-row" data-pid="${p.id}"><span class="card-priority-dot" style="background:${PRI_CLR[p.priority]}"></span><span class="cal-patient-name">${p.name}</span><span class="cal-patient-action">${p.nextAction}</span><span class="action-label ${u}">${urgLabel(p.dueDate)}</span></div>`;
+  }).join('')}</div>`;
+  detail.querySelectorAll('.cal-patient-row').forEach(r=>r.addEventListener('click',()=>openDetail(r.dataset.pid)));
+}
+
+// ═══════════════════════════════════════════
+//  REPORTS
+// ═══════════════════════════════════════════
+function renderReports(){
+  const total=patients.length;
+  const overdue=patients.filter(p=>urg(p.dueDate)==='overdue').length;
+  const completed=patients.filter(p=>p.stage==='complete').length;
+  const active=total-completed;
+  $('report-stats').innerHTML=`
+    <div class="stat-card" style="border-top:3px solid var(--accent)"><div class="stat-label">Total Patients</div><div class="stat-value" style="color:var(--accent)">${total}</div><div class="stat-change" style="color:var(--text-muted)">${active} active</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--success)"><div class="stat-label">Completion Rate</div><div class="stat-value" style="color:var(--success)">${Math.round(completed/total*100)}%</div><div class="stat-change" style="color:var(--text-muted)">${completed} completed</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--danger)"><div class="stat-label">Overdue Rate</div><div class="stat-value" style="color:var(--danger)">${Math.round(overdue/total*100)}%</div><div class="stat-change" style="color:var(--danger)">${overdue} patients</div></div>
+    <div class="stat-card" style="border-top:3px solid var(--blue)"><div class="stat-label">Avg Cycle</div><div class="stat-value" style="color:var(--blue)">${(patients.reduce((s,p)=>s+p.cycle,0)/total).toFixed(1)}</div><div class="stat-change" style="color:var(--text-muted)">cycles per patient</div></div>
+  `;
+
+  // Stage distribution
+  const stageData=STAGES.map(s=>({...s,count:patients.filter(p=>p.stage===s.id).length}));
+  const maxStage=Math.max(...stageData.map(s=>s.count),1);
+
+  // Priority distribution
+  const priData=['urgent','high','medium','low'].map(p=>({name:p,count:patients.filter(x=>x.priority===p).length}));
+  const maxPri=Math.max(...priData.map(p=>p.count),1);
+
+  // Status breakdown for donut
+  const urgData=[
+    {name:'Overdue',count:overdue,color:'var(--danger)'},
+    {name:'Due Today',count:patients.filter(p=>urg(p.dueDate)==='today').length,color:'var(--warning)'},
+    {name:'On Track',count:patients.filter(p=>urg(p.dueDate)==='upcoming').length,color:'var(--success)'},
+    {name:'Complete',count:completed,color:'var(--accent)'}
+  ];
+  const urgTotal=urgData.reduce((s,d)=>s+d.count,0);
+  let conicParts=[];let cumPct=0;
+  urgData.forEach(d=>{const pct=d.count/urgTotal*100;conicParts.push(`${d.color} ${cumPct}% ${cumPct+pct}%`);cumPct+=pct});
+
+  $('report-charts').innerHTML=`
+    <div class="chart-box"><h4>Patients by Stage</h4><div class="bar-chart">${stageData.map(s=>`<div class="bar-row"><span class="bar-label">${s.name}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(s.count/maxStage*100,8)}%;background:${s.color}">${s.count}</div></div></div>`).join('')}</div></div>
+    <div class="chart-box"><h4>Priority Breakdown</h4><div class="bar-chart">${priData.map(p=>`<div class="bar-row"><span class="bar-label" style="text-transform:capitalize">${p.name}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(p.count/maxPri*100,10)}%;background:${PRI_CLR[p.name]}">${p.count}</div></div></div>`).join('')}</div></div>
+    <div class="chart-box" style="grid-column:span 2"><h4>Patient Status Overview</h4><div class="donut-wrap"><div class="donut" style="background:conic-gradient(${conicParts.join(',')})"><div class="donut-center"><span class="val">${total}</span><span class="lbl">patients</span></div></div><div class="donut-legend">${urgData.map(d=>`<div class="legend-item"><span class="legend-dot" style="background:${d.color}"></span>${d.name}: <strong>${d.count}</strong> (${Math.round(d.count/urgTotal*100)}%)</div>`).join('')}</div></div></div>
+  `;
+}
+
+// ═══════════════════════════════════════════
+//  SETTINGS
+// ═══════════════════════════════════════════
+function renderSettings(){
+  if(!canAccessSettings()){$('settings-content').innerHTML='<div class="settings-section"><div class="empty-state"><div class="empty-icon">🔒</div><p>Admin access required to view settings.</p></div></div>';return}
+  $('settings-content').innerHTML=`
+    <div class="settings-section">
+      <div class="settings-box">
+        <div class="settings-box-header"><h3>Team Members</h3><button class="btn-add" id="btn-add-user">+ Add Member</button></div>
+        <div id="team-list"></div>
       </div>
     </div>
+    <div class="settings-section">
+      <div class="settings-box">
+        <div class="settings-box-header"><h3>Reminder Settings</h3></div>
+        <div class="settings-row"><div class="settings-row-label">Overdue Email Alerts<small>Send email when a task becomes overdue</small></div><div class="toggle${settings.overdueEmail?' on':''}" data-setting="overdueEmail"></div></div>
+        <div class="settings-row"><div class="settings-row-label">Daily Digest<small>Send a daily summary of tasks to staff</small></div><div class="toggle${settings.dailyDigest?' on':''}" data-setting="dailyDigest"></div></div>
+        <div class="settings-row"><div class="settings-row-label">Auto-Archive Completed<small>Archive patients after 30 days in Complete stage</small></div><div class="toggle${settings.autoArchive?' on':''}" data-setting="autoArchive"></div></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-box">
+        <div class="settings-box-header"><h3>Data</h3></div>
+        <div class="settings-row"><div class="settings-row-label">Export Patient Data<small>Download patient list as JSON</small></div><button class="btn-outline" id="btn-export">Export JSON</button></div>
+        <div class="settings-row"><div class="settings-row-label">Export Activity Log<small>Download activity history</small></div><button class="btn-outline" id="btn-export-activity">Export Log</button></div>
+      </div>
+    </div>
+  `;
+  renderTeamList();
+  // Toggles
+  $('settings-content').querySelectorAll('.toggle').forEach(t=>{
+    t.addEventListener('click',()=>{
+      const key=t.dataset.setting;
+      settings[key]=!settings[key];
+      t.classList.toggle('on',settings[key]);
+      showToast(`${key.replace(/([A-Z])/g,' $1')} ${settings[key]?'enabled':'disabled'}`,'info');
+    });
+  });
+  // Add user
+  $('btn-add-user').addEventListener('click',()=>openModal('addUser'));
+  // Export
+  $('btn-export').addEventListener('click',()=>{downloadJSON(patients,'patients.json')});
+  $('btn-export-activity').addEventListener('click',()=>{downloadJSON(activityLog,'activity-log.json')});
+}
+function renderTeamList(){
+  const list=$('team-list');
+  if(!list)return;
+  list.innerHTML=users.map(u=>`<div class="team-member-row"><div class="user-avatar-sm" style="background:${u.role==='admin'?'var(--accent)':u.role==='staff'?'var(--blue)':'var(--purple)'};color:#fff;font-size:.7rem;width:30px;height:30px">${u.initials}</div><div class="team-name">${u.name}</div><div class="team-email">${u.email}</div><select class="team-role-select" data-uid="${u.id}"><option value="admin"${u.role==='admin'?' selected':''}>Admin</option><option value="staff"${u.role==='staff'?' selected':''}>Staff</option><option value="clinician"${u.role==='clinician'?' selected':''}>Clinician</option></select><div class="team-actions"><button data-uid="${u.id}" title="Remove">✕</button></div></div>`).join('');
+  list.querySelectorAll('.team-role-select').forEach(s=>s.addEventListener('change',e=>{
+    const uid=parseInt(s.dataset.uid);
+    const u=users.find(x=>x.id===uid);
+    if(u){u.role=s.value;showToast(`${u.name}'s role updated to ${u.role}`,'success');applyRole()}
+  }));
+  list.querySelectorAll('.team-actions button').forEach(b=>b.addEventListener('click',()=>{
+    const uid=parseInt(b.dataset.uid);
+    if(uid===currentUser.id){showToast('Cannot remove your own account','error');return}
+    const u=users.find(x=>x.id===uid);
+    if(u) showConfirm(`Remove ${u.name}?`,`This will remove ${u.name} from the team. They will lose access to CareFlow.`,()=>{users=users.filter(x=>x.id!==uid);renderTeamList();showToast(`${u.name} removed from team`,'success')});
+  }));
+}
+function downloadJSON(data,filename){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  showToast(`Downloaded ${filename}`,'success');
+}
 
+// ═══════════════════════════════════════════
+//  DETAIL PANEL
+// ═══════════════════════════════════════════
+function openDetail(id){
+  selectedPatientId=id;
+  const p=patients.find(x=>x.id===id);
+  if(!p)return;
+  const s=stageOf(p.stage);const u=urg(p.dueDate);
+  const nextIdx=p.plan.findIndex(x=>!x.done);
+
+  $('detail-body').innerHTML=`
+    <div class="detail-patient-header">
+      <h2>${p.name}</h2>
+      <div class="detail-meta"><span>Age ${p.age}</span><span>·</span><span>Cycle ${p.cycle}</span><span>·</span><span>Since ${fmtDateFull(p.startDate)}</span></div>
+      <div class="detail-contact"><div class="detail-contact-row"><span class="lbl">Phone</span>${p.phone}</div><div class="detail-contact-row"><span class="lbl">Email</span>${p.email}</div></div>
+    </div>
     <div class="detail-section">
       <div class="detail-section-title">Current Status</div>
       <div class="detail-status">
-        <div class="status-stage" style="color:${stageColorMap[p.stage]}">${stage.name}</div>
+        <div class="status-stage" style="color:${STAGE_CLR[p.stage]}">${s.name}</div>
         <div class="status-action">${p.nextAction}</div>
-        <div class="status-due">
-          <span style="color:${urg==='overdue'?'var(--danger)':urg==='today'?'var(--warning)':'var(--text-muted)'}">
-            ${urg==='overdue'?'⚠ ':''}${urgencyLabel(p.dueDate)} — ${formatDate(p.dueDate)}
-          </span>
-        </div>
+        <div class="status-due" style="color:${u==='overdue'?'var(--danger)':u==='today'?'var(--warning)':'var(--text-muted)'}">${u==='overdue'?'⚠ ':''}${urgLabel(p.dueDate)} — ${fmtDateFull(p.dueDate)}</div>
+        ${canEdit()?`<div class="stage-select"><label>Move to:</label><select id="stage-select">${STAGES.map(st=>`<option value="${st.id}"${st.id===p.stage?' selected':''}>${st.name}</option>`).join('')}</select></div>`:''}
       </div>
     </div>
-
     <div class="detail-section">
-      <div class="detail-section-title">Treatment Timeline</div>
-      <div class="timeline">
-        ${p.plan.map((s,i)=>{
-          let cls=s.done?'completed':(i===nextIncomplete?'current':'future');
-          return `
-            <div class="timeline-step ${cls}">
-              <div class="timeline-icon">${s.done?'✓':cls==='current'?'●':''}</div>
-              <div class="timeline-content">
-                <div class="step-name">${s.step}</div>
-                <div class="step-date">${s.done?formatDate(s.date):cls==='current'?(s.date?'Target: '+formatDate(s.date):'Pending'):'Not started'}</div>
-              </div>
-            </div>`;
-        }).join('')}
-      </div>
+      <div class="detail-section-title"><span>Timeline</span></div>
+      <div class="timeline">${p.plan.map((step,i)=>{
+        let cls=step.done?'completed':(i===nextIdx?'current':'future');
+        return `<div class="timeline-step ${cls}"><div class="timeline-icon">${step.done?'✓':cls==='current'?'●':''}</div><div class="timeline-content"><div class="step-name">${step.step}</div><div class="step-date">${step.done?fmtDateFull(step.date):cls==='current'?(step.date?'Target: '+fmtDateFull(step.date):'Pending'):'Not started'}</div></div></div>`;
+      }).join('')}</div>
     </div>
-
     <div class="detail-section">
-      <div class="detail-section-title">Notes</div>
-      <div class="detail-notes">${p.notes}</div>
+      <div class="detail-section-title"><span>Notes (${p.notes.length})</span>${canEdit()?'<button id="btn-add-note-inline" style="background:none;border:none;color:var(--accent);cursor:pointer;font-family:DM Mono,monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.04em">+ Add Note</button>':''}</div>
+      <div class="detail-notes">${p.notes.length?p.notes.slice().reverse().map(n=>`<div class="note-item"><div class="note-header"><span class="note-author">${n.author}</span><span class="note-date">${fmtDateFull(n.date)}</span></div>${n.text}</div>`).join(''):'<div style="color:var(--text-muted);font-size:.85rem;padding:8px 0">No notes yet.</div>'}</div>
     </div>
   `;
-  document.getElementById('detail-overlay').classList.add('open');
-  document.getElementById('detail-panel').classList.add('open');
+  // Detail actions
+  const actions=$('detail-actions');
+  actions.innerHTML='';
+  if(canEdit()){
+    const markBtn=document.createElement('button');markBtn.className='btn-primary';markBtn.textContent='Mark Next Step';
+    markBtn.addEventListener('click',()=>{
+      const next=p.plan.find(x=>!x.done);
+      if(next){next.done=true;next.date=TODAY;addActivity(`<strong>${p.name}</strong> — "${next.step}" completed`);renderAll();openDetail(id);showToast(`"${next.step}" marked complete`,'success')}
+      else{showToast('All steps already completed','info')}
+    });
+    actions.appendChild(markBtn);
+
+    const editBtn=document.createElement('button');editBtn.className='btn-secondary';editBtn.textContent='Edit Patient';
+    editBtn.addEventListener('click',()=>openModal('editPatient',p));
+    actions.appendChild(editBtn);
+  }
+  if(canDelete()){
+    const delBtn=document.createElement('button');delBtn.className='btn-danger';delBtn.textContent='Delete';
+    delBtn.addEventListener('click',()=>showConfirm(`Delete ${p.name}?`,'This action cannot be undone. All patient data will be permanently removed.',()=>{patients=patients.filter(x=>x.id!==id);closeDetail();renderAll();showToast(`${p.name} removed`,'success');addActivity(`<strong>${p.name}</strong> — Patient record deleted`,'var(--danger)')}));
+    actions.appendChild(delBtn);
+  }
+
+  // Stage select
+  const stageSel=$('stage-select');
+  if(stageSel) stageSel.addEventListener('change',()=>{
+    const newStage=stageSel.value;
+    if(newStage!==p.stage){p.stage=newStage;addActivity(`<strong>${p.name}</strong> — Moved to ${stageOf(newStage).name}`);renderAll();openDetail(id);showToast(`Moved to ${stageOf(newStage).name}`,'success')}
+  });
+
+  // Add note inline
+  const addNoteBtn=$('btn-add-note-inline');
+  if(addNoteBtn) addNoteBtn.addEventListener('click',()=>openModal('addNote',p));
+
+  $('detail-overlay').classList.add('open');
+  $('detail-panel').classList.add('open');
 }
 function closeDetail(){
-  document.getElementById('detail-overlay').classList.remove('open');
-  document.getElementById('detail-panel').classList.remove('open');
-  currentDetailId=null;
+  $('detail-overlay').classList.remove('open');
+  $('detail-panel').classList.remove('open');
+  selectedPatientId=null;
 }
-document.getElementById('detail-close').addEventListener('click',closeDetail);
-document.getElementById('detail-overlay').addEventListener('click',closeDetail);
+$('detail-close').addEventListener('click',closeDetail);
+$('detail-overlay').addEventListener('click',closeDetail);
 
-// Mark complete button
-document.getElementById('btn-mark-complete').addEventListener('click',()=>{
-  if(!currentDetailId) return;
-  const p=patients.find(x=>x.id===currentDetailId);
-  const next=p.plan.find(s=>!s.done);
-  if(next){
-    next.done=true;
-    next.date=TODAY;
-    renderKanban();
-    renderActions(document.querySelector('.filter-btn.active').dataset.filter);
-    renderPatientsTable();
-    openDetail(currentDetailId);
+// ═══════════════════════════════════════════
+//  MODALS
+// ═══════════════════════════════════════════
+function openModal(type,data){
+  const overlay=$('modal-overlay');const content=$('modal-content');
+  overlay.classList.add('open');
+
+  if(type==='addPatient'||type==='editPatient'){
+    const isEdit=type==='editPatient';
+    const p=isEdit?data:{name:'',age:'',phone:'',email:'',stage:'consultation',priority:'medium',dueDate:TODAY,cycle:1,notes:[],plan:STAGES.flatMap(s=>s.id==='consultation'?[{step:'Initial Consultation',done:false,date:null}]:[]).concat([{step:'Lab Work Ordered',done:false,date:null},{step:'Eligibility Confirmed',done:false,date:null},{step:'Payment Processed',done:false,date:null},{step:'Prescription Requested',done:false,date:null},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}])};
+    content.innerHTML=`
+      <div class="modal-header"><h3>${isEdit?'Edit Patient':'Add New Patient'}</h3><button class="modal-close" id="modal-close">✕</button></div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input id="f-name" value="${p.name}" placeholder="e.g. Alice Johnson"><div class="form-error" id="e-name">Name is required</div></div>
+          <div class="form-group"><label>Age</label><input id="f-age" type="number" value="${p.age}" placeholder="e.g. 34" min="0" max="150"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone</label><input id="f-phone" value="${p.phone||''}" placeholder="(555) 000-0000"></div>
+          <div class="form-group"><label>Email</label><input id="f-email" type="email" value="${p.email||''}" placeholder="email@example.com"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Stage *</label><select id="f-stage">${STAGES.map(s=>`<option value="${s.id}"${s.id===p.stage?' selected':''}>${s.name}</option>`).join('')}</select></div>
+          <div class="form-group"><label>Priority</label><select id="f-priority"><option value="low"${p.priority==='low'?' selected':''}>Low</option><option value="medium"${p.priority==='medium'?' selected':''}>Medium</option><option value="high"${p.priority==='high'?' selected':''}>High</option><option value="urgent"${p.priority==='urgent'?' selected':''}>Urgent</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Due Date</label><input id="f-due" type="date" value="${p.dueDate||TODAY}"></div>
+          <div class="form-group"><label>Cycle #</label><input id="f-cycle" type="number" value="${p.cycle||1}" min="1"></div>
+        </div>
+        <div class="form-group"><label>Next Action</label><input id="f-action" value="${p.nextAction||''}" placeholder="e.g. Schedule follow-up call"></div>
+        <div class="form-group"><label>Notes</label><textarea id="f-notes" placeholder="Add any initial notes...">${isEdit?p.notes.map(n=>n.text).join('\\n'):''}</textarea></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" id="modal-cancel">Cancel</button><button class="btn-primary" id="modal-save">${isEdit?'Save Changes':'Add Patient'}</button></div>
+    `;
+    $('modal-close').addEventListener('click',closeModal);
+    $('modal-cancel').addEventListener('click',closeModal);
+    $('modal-save').addEventListener('click',()=>{
+      const name=$('f-name').value.trim();
+      if(!name){$('f-name').classList.add('invalid');$('e-name').classList.add('show');return}
+      if(isEdit){
+        p.name=name;p.age=parseInt($('f-age').value)||0;p.phone=$('f-phone').value;p.email=$('f-email').value;
+        p.stage=$('f-stage').value;p.priority=$('f-priority').value;p.dueDate=$('f-due').value;p.cycle=parseInt($('f-cycle').value)||1;
+        p.nextAction=$('f-action').value;
+        addActivity(`<strong>${p.name}</strong> — Patient record updated`);
+        showToast(`${p.name} updated successfully`,'success');
+      } else {
+        const newP={
+          id:nextId.patient++,name,age:parseInt($('f-age').value)||0,
+          phone:$('f-phone').value,email:$('f-email').value,
+          stage:$('f-stage').value,priority:$('f-priority').value,
+          dueDate:$('f-due').value||TODAY,cycle:parseInt($('f-cycle').value)||1,
+          startDate:TODAY,nextAction:$('f-action').value||'Follow up',
+          notes:$('f-notes').value.trim()?[{id:nextId.note++,text:$('f-notes').value.trim(),date:TODAY,author:currentUser.name}]:[],
+          plan:[{step:'Initial Consultation',done:false,date:null},{step:'Lab Work Ordered',done:false,date:null},{step:'Eligibility Confirmed',done:false,date:null},{step:'Payment Processed',done:false,date:null},{step:'Prescription Requested',done:false,date:null},{step:'Medication Delivered',done:false,date:null},{step:'Treatment Started',done:false,date:null},{step:'Monthly Follow-up',done:false,date:null},{step:'New Cycle Payment',done:false,date:null}]
+        };
+        patients.push(newP);
+        addActivity(`<strong>${name}</strong> — New patient added to ${stageOf(newP.stage).name}`,'var(--success)');
+        showToast(`${name} added successfully`,'success');
+      }
+      closeModal();renderAll();
+    });
+    $('f-name').addEventListener('input',()=>{$('f-name').classList.remove('invalid');$('e-name').classList.remove('show')});
   }
-});
 
-// ── NOTIFICATIONS ──
-document.getElementById('notif-toggle').addEventListener('click',e=>{
-  e.stopPropagation();
-  document.getElementById('notif-dropdown').classList.toggle('open');
-});
-document.addEventListener('click',()=>{
-  document.getElementById('notif-dropdown').classList.remove('open');
-});
-
-// ── SEARCH ──
-document.getElementById('global-search').addEventListener('input',e=>{
-  const q=e.target.value.toLowerCase();
-  if(!q){
-    renderKanban();renderPatientsTable();return;
+  else if(type==='addNote'){
+    const p=data;
+    content.innerHTML=`
+      <div class="modal-header"><h3>Add Note for ${p.name}</h3><button class="modal-close" id="modal-close">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>Note</label><textarea id="f-note" placeholder="Enter your note..." rows="4"></textarea><div class="form-error" id="e-note">Note cannot be empty</div></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" id="modal-cancel">Cancel</button><button class="btn-primary" id="modal-save">Add Note</button></div>
+    `;
+    $('modal-close').addEventListener('click',closeModal);
+    $('modal-cancel').addEventListener('click',closeModal);
+    $('modal-save').addEventListener('click',()=>{
+      const text=$('f-note').value.trim();
+      if(!text){$('f-note').classList.add('invalid');$('e-note').classList.add('show');return}
+      p.notes.push({id:nextId.note++,text,date:TODAY,author:currentUser.name});
+      addActivity(`<strong>${p.name}</strong> — Note added`,'var(--blue)');
+      closeModal();renderAll();openDetail(p.id);
+      showToast('Note added','success');
+    });
+    $('f-note').addEventListener('input',()=>{$('f-note').classList.remove('invalid');$('e-note').classList.remove('show')});
   }
-  // Filter kanban cards
-  document.querySelectorAll('.kanban-card').forEach(card=>{
-    const id=parseInt(card.dataset.patientId);
-    const p=patients.find(x=>x.id===id);
-    const match=p.name.toLowerCase().includes(q)||p.nextAction.toLowerCase().includes(q);
-    card.style.display=match?'':'none';
-  });
-  // Filter table
-  document.querySelectorAll('#patients-tbody tr').forEach(tr=>{
-    const id=parseInt(tr.dataset.patientId);
-    const p=patients.find(x=>x.id===id);
-    const match=p.name.toLowerCase().includes(q)||p.nextAction.toLowerCase().includes(q)||p.email.toLowerCase().includes(q);
-    tr.style.display=match?'':'none';
-  });
-});
 
-// ── INIT ──
-renderKanban();
-renderActions();
-renderPatientsTable();
+  else if(type==='addUser'){
+    content.innerHTML=`
+      <div class="modal-header"><h3>Add Team Member</h3><button class="modal-close" id="modal-close">✕</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>Full Name *</label><input id="f-uname" placeholder="e.g. John Doe"><div class="form-error" id="e-uname">Name is required</div></div>
+        <div class="form-group"><label>Email *</label><input id="f-uemail" type="email" placeholder="email@clinic.com"><div class="form-error" id="e-uemail">Valid email required</div></div>
+        <div class="form-group"><label>Role</label><select id="f-urole"><option value="staff">Staff</option><option value="clinician">Clinician</option><option value="admin">Admin</option></select></div>
+      </div>
+      <div class="modal-footer"><button class="btn-secondary" id="modal-cancel">Cancel</button><button class="btn-primary" id="modal-save">Add Member</button></div>
+    `;
+    $('modal-close').addEventListener('click',closeModal);
+    $('modal-cancel').addEventListener('click',closeModal);
+    $('modal-save').addEventListener('click',()=>{
+      const name=$('f-uname').value.trim();const email=$('f-uemail').value.trim();
+      let valid=true;
+      if(!name){$('f-uname').classList.add('invalid');$('e-uname').classList.add('show');valid=false}
+      if(!email||!email.includes('@')){$('f-uemail').classList.add('invalid');$('e-uemail').classList.add('show');valid=false}
+      if(!valid)return;
+      const initials=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+      users.push({id:Date.now(),name,role:$('f-urole').value,initials,email});
+      closeModal();renderSettings();renderRoleDropdown();
+      showToast(`${name} added to team`,'success');
+    });
+    $('f-uname').addEventListener('input',()=>{$('f-uname').classList.remove('invalid');$('e-uname').classList.remove('show')});
+    $('f-uemail').addEventListener('input',()=>{$('f-uemail').classList.remove('invalid');$('e-uemail').classList.remove('show')});
+  }
+}
+
+function closeModal(){$('modal-overlay').classList.remove('open')}
+
+function showConfirm(title,msg,onConfirm){
+  const overlay=$('confirm-overlay');const content=$('confirm-content');
+  overlay.classList.add('open');
+  content.innerHTML=`<div class="modal-body" style="padding:28px 24px"><div class="confirm-icon">⚠️</div><div class="confirm-title">${title}</div><div class="confirm-msg">${msg}</div></div><div class="modal-footer" style="justify-content:center"><button class="btn-secondary" id="confirm-cancel">Cancel</button><button class="btn-primary" id="confirm-ok" style="background:var(--danger)">Confirm</button></div>`;
+  $('confirm-cancel').addEventListener('click',()=>overlay.classList.remove('open'));
+  $('confirm-ok').addEventListener('click',()=>{overlay.classList.remove('open');onConfirm()});
+}
+$('modal-overlay').addEventListener('click',e=>{if(e.target===$('modal-overlay'))closeModal()});
+
+// ═══════════════════════════════════════════
+//  ADD PATIENT BUTTONS
+// ═══════════════════════════════════════════
+$('btn-add-kanban').addEventListener('click',()=>openModal('addPatient'));
+$('btn-add-patients').addEventListener('click',()=>openModal('addPatient'));
+
+// ═══════════════════════════════════════════
+//  RENDER ALL
+// ═══════════════════════════════════════════
+function renderAll(){
+  renderDashboard();renderKanban();renderActions();renderPatientsTable();
+  if(currentView==='calendar')renderCalendar();
+  if(currentView==='reports')renderReports();
+  if(currentView==='settings')renderSettings();
+  renderNotifications();
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+(function init(){
+  // Set topbar date
+  $('topbar-date').textContent=new Date(TODAY+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  renderRoleDropdown();
+  applyRole();
+  renderAll();
+  navigate('dashboard');
+})();
 </script>
 </body>
 </html>
